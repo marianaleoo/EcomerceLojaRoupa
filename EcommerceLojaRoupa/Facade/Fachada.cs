@@ -17,6 +17,7 @@ namespace EcommerceLojaRoupa.Facade
             daos["Cliente"] = new ClienteDao(dbContext);
             daos["Roupa"] = new RoupaDao(dbContext);
             daos["ItemCarrinho"] = new ItemCarrinhoDao(dbContext);
+            daos["Cidade"] = new CidadeDao(dbContext);
             //daos = new Dictionary<string, IDao>();
             //daos["CarrinhoCompra"] = carrinhoCompraDao;
         }

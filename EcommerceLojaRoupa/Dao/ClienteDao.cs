@@ -37,6 +37,7 @@ namespace EcommerceLojaRoupa.Dao
         {
             Cliente cliente = (Cliente)entidadeDominio;
             _context.Cliente.Add(cliente);
+
             await _context.SaveChangesAsync();
         }
 
