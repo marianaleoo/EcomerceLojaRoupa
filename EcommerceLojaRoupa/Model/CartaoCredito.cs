@@ -10,5 +10,6 @@ namespace EcommerceLojaRoupa.Model
         public string NumeroCartao { get; set; }
         public string NomeCartao { get; set; }
         public string BandeiraCartao { get; set; }
+        public string codigoSeguranca { get; set; }
     }
 }

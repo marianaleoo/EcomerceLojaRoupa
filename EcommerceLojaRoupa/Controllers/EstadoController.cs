@@ -10,14 +10,14 @@ namespace EcommerceLojaRoupa.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CidadeController : ControllerBase
+    public class EstadoController : ControllerBase
     {
         private readonly CommandSalvar _commandSalvar;
         private readonly CommandAlterar _commandAlterar;
         private readonly CommandExcluir _commandExcluir;
         private readonly CommandConsultar _commandConsultar;
 
-        public CidadeController(CommandSalvar commandSalvar, CommandAlterar commandAlterar, CommandExcluir commandExcluir, CommandConsultar commandConsultar)
+        public EstadoController(CommandSalvar commandSalvar, CommandAlterar commandAlterar, CommandExcluir commandExcluir, CommandConsultar commandConsultar)
         {
             _commandSalvar = commandSalvar;
             _commandAlterar = commandAlterar;
@@ -26,30 +26,30 @@ namespace EcommerceLojaRoupa.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IAsyncEnumerable<Cidade>>> Consultar()
+        public async Task<ActionResult<IAsyncEnumerable<Estado>>> Consultar()
         {
-            Cidade Cidade = new Cidade();
+            Estado Estado = new Estado();
             try
             {
-                var Cidades = await _commandConsultar.Executar(Cidade);
-                return Ok(Cidades);
+                var Estados = await _commandConsultar.Executar(Estado);
+                return Ok(Estados);
             }
             catch (Exception)
             {
 
-                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao obter Cidades");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao obter Estados");
             }
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult> Alterar(int id, [FromBody] Cidade cidade)
+        public async Task<ActionResult> Alterar(int id, [FromBody] Estado estado)
         {
             try
             {
-                Cidade cidadeID = new Cidade();
-                cidadeID.Id = id;
-                await _commandAlterar.Executar(cidade);
-                return Ok($"Cidade com id={id} foi atualizado com sucesso");
+                Estado estadoID = new Estado();
+                estadoID.Id = id;
+                await _commandAlterar.Executar(estado);
+                return Ok($"Estado com id={id} foi atualizado com sucesso");
             }
             catch (Exception ex)
             {
@@ -61,12 +61,12 @@ namespace EcommerceLojaRoupa.Controllers
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> Excluir(int id)
         {
-            Cidade cidade = new Cidade();
-            cidade.Id = id;
+            Estado estado = new Estado();
+            estado.Id = id;
             try
             {
-                await _commandExcluir.Executar(cidade);
-                return Ok($"Cidade de id={id} foi excluído com sucesso");
+                await _commandExcluir.Executar(estado);
+                return Ok($"Estado de id={id} foi excluído com sucesso");
             }
             catch (Exception ex)
             {
@@ -76,6 +76,5 @@ namespace EcommerceLojaRoupa.Controllers
             }
 
         }
-
     }
 }

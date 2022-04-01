@@ -30,7 +30,7 @@ namespace EcommerceLojaRoupa.Dao
                 clientes.Add(await ConsultarId(cliente.Id));
                 return clientes;
             }
-            return await _context.Cliente.Include(c => c.EnderecoCobranca).ToListAsync();
+            return await _context.Cliente.Include(c => c.EnderecoCobranca.Cidade).ToListAsync();
         }
 
         public async Task Salvar(EntidadeDominio entidadeDominio)

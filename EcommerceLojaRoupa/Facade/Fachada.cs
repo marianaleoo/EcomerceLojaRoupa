@@ -1,4 +1,5 @@
-﻿using EcommerceLojaRoupa.Dao;
+﻿using EcommerceLojaCartaoCredito.Dao;
+using EcommerceLojaRoupa.Dao;
 using EcommerceLojaRoupa.Model;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,9 @@ namespace EcommerceLojaRoupa.Facade
             daos["Roupa"] = new RoupaDao(dbContext);
             daos["ItemCarrinho"] = new ItemCarrinhoDao(dbContext);
             daos["Cidade"] = new CidadeDao(dbContext);
+            daos["Estado"] = new EstadoDao(dbContext);
+            daos["Pais"] = new PaisDao(dbContext);
+            daos["CartaoCredito"] = new CartaoCreditoDao(dbContext);
             //daos = new Dictionary<string, IDao>();
             //daos["CarrinhoCompra"] = carrinhoCompraDao;
         }

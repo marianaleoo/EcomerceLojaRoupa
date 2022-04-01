@@ -1,62 +1,64 @@
 ﻿using EcommerceLojaRoupa.Model;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace EcommerceLojaRoupa.Dao
 {
-    public class CidadeDao : IDao
+    public class PaisDao : IDao
     {
         private readonly AppDbContext _context;
 
-        public CidadeDao(AppDbContext context)
+        public PaisDao(AppDbContext context)
         {
             _context = context;
         }
 
-        public CidadeDao()
+        public PaisDao()
         {
         }
 
         public async Task<IEnumerable<EntidadeDominio>> Consultar(EntidadeDominio entidadeDominio)
         {
-            Cidade Cidade = (Cidade)entidadeDominio;
-            if (Cidade.Id != 0)
+            Pais Pais = (Pais)entidadeDominio;
+            if (Pais.Id != 0)
             {
-                List<EntidadeDominio> Cidades = new List<EntidadeDominio>();
-                Cidades.Add(await ConsultarId(Cidade.Id));
-                return Cidades;
+                List<EntidadeDominio> Paiss = new List<EntidadeDominio>();
+                Paiss.Add(await ConsultarId(Pais.Id));
+                return Paiss;
             }
-            return await _context.Cidade.Include(c => c.Estado.Pais).ToListAsync();
+            return await _context.Pais.ToListAsync();
+
         }
 
         public async Task<EntidadeDominio> ConsultarId(int id)
         {
-            var entidadeDominio = await _context.Cidade.FindAsync(id);
+            var entidadeDominio = await _context.Pais.FindAsync(id);
             return entidadeDominio;
         }
 
         public async Task Salvar(EntidadeDominio entidadeDominio)
         {
-            Cidade cidade = (Cidade)entidadeDominio;
-            _context.Cidade.Add(cidade);
+            Pais pais = (Pais)entidadeDominio;
+            _context.Pais.Add(pais);
 
             await _context.SaveChangesAsync();
         }
 
         public async Task Alterar(EntidadeDominio entidadeDominio)
         {
-            Cidade cidade = (Cidade)entidadeDominio;
-            _context.Entry(cidade).State = EntityState.Modified;
+            Pais pais = (Pais)entidadeDominio;
+            _context.Entry(pais).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
 
         public async Task Excluir(EntidadeDominio entidadeDominio)
         {
-            Cidade cidade = (Cidade)entidadeDominio;
+            Pais pais = (Pais)entidadeDominio;
 
-            var cidadeBanco = (Cidade)await ConsultarId(cidade.Id);
-            _context.Cidade.Remove(cidadeBanco);
+            var paisBanco = (Pais)await ConsultarId(pais.Id);
+            _context.Pais.Remove(paisBanco);
             await _context.SaveChangesAsync();
 
         }

@@ -5,58 +5,58 @@ using System.Threading.Tasks;
 
 namespace EcommerceLojaRoupa.Dao
 {
-    public class CidadeDao : IDao
+    public class EnderecoDao : IDao
     {
         private readonly AppDbContext _context;
 
-        public CidadeDao(AppDbContext context)
+        public EnderecoDao(AppDbContext context)
         {
             _context = context;
         }
 
-        public CidadeDao()
+        public EnderecoDao()
         {
         }
 
         public async Task<IEnumerable<EntidadeDominio>> Consultar(EntidadeDominio entidadeDominio)
         {
-            Cidade Cidade = (Cidade)entidadeDominio;
-            if (Cidade.Id != 0)
+            Endereco Endereco = (Endereco)entidadeDominio;
+            if (Endereco.Id != 0)
             {
-                List<EntidadeDominio> Cidades = new List<EntidadeDominio>();
-                Cidades.Add(await ConsultarId(Cidade.Id));
-                return Cidades;
+                List<EntidadeDominio> Enderecos = new List<EntidadeDominio>();
+                Enderecos.Add(await ConsultarId(Endereco.Id));
+                return Enderecos;
             }
-            return await _context.Cidade.Include(c => c.Estado.Pais).ToListAsync();
+            return await _context.Endereco.Include(c => c.Cidade).ToListAsync();
         }
 
         public async Task<EntidadeDominio> ConsultarId(int id)
         {
-            var entidadeDominio = await _context.Cidade.FindAsync(id);
+            var entidadeDominio = await _context.Endereco.FindAsync(id);
             return entidadeDominio;
         }
 
         public async Task Salvar(EntidadeDominio entidadeDominio)
         {
-            Cidade cidade = (Cidade)entidadeDominio;
-            _context.Cidade.Add(cidade);
+            Endereco endereco = (Endereco)entidadeDominio;
+            _context.Endereco.Add(endereco);
 
             await _context.SaveChangesAsync();
         }
 
         public async Task Alterar(EntidadeDominio entidadeDominio)
         {
-            Cidade cidade = (Cidade)entidadeDominio;
-            _context.Entry(cidade).State = EntityState.Modified;
+            Endereco endereco = (Endereco)entidadeDominio;
+            _context.Entry(endereco).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
 
         public async Task Excluir(EntidadeDominio entidadeDominio)
         {
-            Cidade cidade = (Cidade)entidadeDominio;
+            Endereco endereco = (Endereco)entidadeDominio;
 
-            var cidadeBanco = (Cidade)await ConsultarId(cidade.Id);
-            _context.Cidade.Remove(cidadeBanco);
+            var enderecoBanco = (Endereco)await ConsultarId(endereco.Id);
+            _context.Endereco.Remove(enderecoBanco);
             await _context.SaveChangesAsync();
 
         }
