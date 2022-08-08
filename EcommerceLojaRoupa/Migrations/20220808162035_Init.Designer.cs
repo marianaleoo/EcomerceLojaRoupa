@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcommerceLojaRoupa.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220308214010_AtualizacaoBanco")]
-    partial class AtualizacaoBanco
+    [Migration("20220808162035_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,6 +53,9 @@ namespace EcommerceLojaRoupa.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NumeroCartao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("codigoSeguranca")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

@@ -6560,23 +6560,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mariana.oliveira\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\maria\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\FATEC\\1 semestre de 2022\\LES\\EcomerceLojaRoupa\\EcommerceLojaRoupa\\EcommerceLojaRoupa.csproj",
+      "projectUniqueName": "D:\\FATEC\\LES\\EcomerceLojaRoupa\\EcommerceLojaRoupa\\EcommerceLojaRoupa.csproj",
       "projectName": "EcommerceLojaRoupa",
-      "projectPath": "D:\\FATEC\\1 semestre de 2022\\LES\\EcomerceLojaRoupa\\EcommerceLojaRoupa\\EcommerceLojaRoupa.csproj",
-      "packagesPath": "C:\\Users\\mariana.oliveira\\.nuget\\packages\\",
-      "outputPath": "D:\\FATEC\\1 semestre de 2022\\LES\\EcomerceLojaRoupa\\EcommerceLojaRoupa\\obj\\",
+      "projectPath": "D:\\FATEC\\LES\\EcomerceLojaRoupa\\EcommerceLojaRoupa\\EcommerceLojaRoupa.csproj",
+      "packagesPath": "C:\\Users\\maria\\.nuget\\packages\\",
+      "outputPath": "D:\\FATEC\\LES\\EcomerceLojaRoupa\\EcommerceLojaRoupa\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\mariana.oliveira\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\maria\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6631,12 +6627,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[5.0.13, 5.0.13]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -6645,7 +6635,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }

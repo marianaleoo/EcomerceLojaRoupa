@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EcommerceLojaRoupa.Migrations
 {
-    public partial class inicial : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,6 +29,7 @@ namespace EcommerceLojaRoupa.Migrations
                     NumeroCartao = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NomeCartao = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BandeiraCartao = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    codigoSeguranca = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -230,18 +231,18 @@ namespace EcommerceLojaRoupa.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PaisId = table.Column<int>(type: "int", nullable: true),
+                    paisId = table.Column<int>(type: "int", nullable: false),
                     DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Estado", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Estado_Pais_PaisId",
-                        column: x => x.PaisId,
+                        name: "FK_Estado_Pais_paisId",
+                        column: x => x.paisId,
                         principalTable: "Pais",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -252,7 +253,7 @@ namespace EcommerceLojaRoupa.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Quantidade = table.Column<int>(type: "int", nullable: false),
                     Data = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    RoupaId = table.Column<int>(type: "int", nullable: true),
+                    RoupaId = table.Column<int>(type: "int", nullable: false),
                     DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -263,7 +264,7 @@ namespace EcommerceLojaRoupa.Migrations
                         column: x => x.RoupaId,
                         principalTable: "Roupa",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -273,18 +274,18 @@ namespace EcommerceLojaRoupa.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EstadoId = table.Column<int>(type: "int", nullable: true),
+                    estadoId = table.Column<int>(type: "int", nullable: false),
                     DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cidade", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Cidade_Estado_EstadoId",
-                        column: x => x.EstadoId,
+                        name: "FK_Cidade_Estado_estadoId",
+                        column: x => x.estadoId,
                         principalTable: "Estado",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -299,7 +300,7 @@ namespace EcommerceLojaRoupa.Migrations
                     Numero = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Bairro = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Cep = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CidadeId = table.Column<int>(type: "int", nullable: true),
+                    cidadeId = table.Column<int>(type: "int", nullable: false),
                     ClienteId = table.Column<int>(type: "int", nullable: false),
                     DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -307,11 +308,11 @@ namespace EcommerceLojaRoupa.Migrations
                 {
                     table.PrimaryKey("PK_Endereco", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Endereco_Cidade_CidadeId",
-                        column: x => x.CidadeId,
+                        name: "FK_Endereco_Cidade_cidadeId",
+                        column: x => x.cidadeId,
                         principalTable: "Cidade",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Endereco_Cliente_ClienteId",
                         column: x => x.ClienteId,
@@ -321,14 +322,14 @@ namespace EcommerceLojaRoupa.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cidade_EstadoId",
+                name: "IX_Cidade_estadoId",
                 table: "Cidade",
-                column: "EstadoId");
+                column: "estadoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Endereco_CidadeId",
+                name: "IX_Endereco_cidadeId",
                 table: "Endereco",
-                column: "CidadeId");
+                column: "cidadeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Endereco_ClienteId",
@@ -337,9 +338,9 @@ namespace EcommerceLojaRoupa.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Estado_PaisId",
+                name: "IX_Estado_paisId",
                 table: "Estado",
-                column: "PaisId");
+                column: "paisId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ItemCarrinho_RoupaId",

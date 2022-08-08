@@ -53,6 +53,9 @@ namespace EcommerceLojaRoupa.Migrations
                     b.Property<string>("NumeroCartao")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("codigoSeguranca")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("CartaoCredito");
