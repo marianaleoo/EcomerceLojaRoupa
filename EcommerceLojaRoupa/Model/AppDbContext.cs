@@ -32,5 +32,6 @@ namespace EcommerceLojaRoupa.Model
         public DbSet<CarrinhoCompra> CarrinhoCompra { get; set; }
 
 
+
     }
 }

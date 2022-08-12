@@ -27,7 +27,7 @@ namespace EcommerceLojaRoupa.Dao
                 Enderecos.Add(await ConsultarId(Endereco.Id));
                 return Enderecos;
             }
-            return await _context.Endereco.Include(c => c.Cidade).ToListAsync();
+            return await _context.Endereco.Include(c => c.Cidade.Estado.Pais).ToListAsync();
         }
 
         public async Task<EntidadeDominio> ConsultarId(int id)
