@@ -34,10 +34,10 @@ namespace EcommerceLojaRoupa.Controllers
                 var Cidades = await _commandConsultar.Executar(Cidade);
                 return Ok(Cidades);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao obter Cidades");
+                return BadRequest(ex.Message);
             }
         }
 
