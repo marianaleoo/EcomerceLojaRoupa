@@ -210,6 +210,20 @@ namespace EcommerceLojaRoupa.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TipoEndereco",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TipoEndereco", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Usuario",
                 columns: table => new
                 {
@@ -302,6 +316,7 @@ namespace EcommerceLojaRoupa.Migrations
                     Cep = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     cidadeId = table.Column<int>(type: "int", nullable: false),
                     ClienteId = table.Column<int>(type: "int", nullable: false),
+                    TipoEnderecoId = table.Column<int>(type: "int", nullable: false),
                     DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -317,6 +332,12 @@ namespace EcommerceLojaRoupa.Migrations
                         name: "FK_Endereco_Cliente_ClienteId",
                         column: x => x.ClienteId,
                         principalTable: "Cliente",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Endereco_TipoEndereco_TipoEnderecoId",
+                        column: x => x.TipoEnderecoId,
+                        principalTable: "TipoEndereco",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -336,6 +357,11 @@ namespace EcommerceLojaRoupa.Migrations
                 table: "Endereco",
                 column: "ClienteId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Endereco_TipoEnderecoId",
+                table: "Endereco",
+                column: "TipoEnderecoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Estado_paisId",
@@ -394,6 +420,9 @@ namespace EcommerceLojaRoupa.Migrations
 
             migrationBuilder.DropTable(
                 name: "Cliente");
+
+            migrationBuilder.DropTable(
+                name: "TipoEndereco");
 
             migrationBuilder.DropTable(
                 name: "Roupa");

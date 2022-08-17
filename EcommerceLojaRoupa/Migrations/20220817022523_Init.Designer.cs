@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcommerceLojaRoupa.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220808162035_Init")]
+    [Migration("20220817022523_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -243,6 +243,9 @@ namespace EcommerceLojaRoupa.Migrations
                     b.Property<string>("Numero")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TipoEnderecoId")
+                        .HasColumnType("int");
+
                     b.Property<string>("TipoLogradouro")
                         .HasColumnType("nvarchar(max)");
 
@@ -256,6 +259,8 @@ namespace EcommerceLojaRoupa.Migrations
 
                     b.HasIndex("ClienteId")
                         .IsUnique();
+
+                    b.HasIndex("TipoEnderecoId");
 
                     b.HasIndex("cidadeId");
 
@@ -431,6 +436,24 @@ namespace EcommerceLojaRoupa.Migrations
                     b.ToTable("Roupa");
                 });
 
+            modelBuilder.Entity("EcommerceLojaRoupa.Model.TipoEndereco", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DataCadastro")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Descricao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TipoEndereco");
+                });
+
             modelBuilder.Entity("EcommerceLojaRoupa.Model.Usuario", b =>
                 {
                     b.Property<int>("Id")
@@ -471,6 +494,12 @@ namespace EcommerceLojaRoupa.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("EcommerceLojaRoupa.Model.TipoEndereco", "TipoEndereco")
+                        .WithMany()
+                        .HasForeignKey("TipoEnderecoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("EcommerceLojaRoupa.Model.Cidade", "Cidade")
                         .WithMany()
                         .HasForeignKey("cidadeId")
@@ -478,6 +507,8 @@ namespace EcommerceLojaRoupa.Migrations
                         .IsRequired();
 
                     b.Navigation("Cidade");
+
+                    b.Navigation("TipoEndereco");
                 });
 
             modelBuilder.Entity("EcommerceLojaRoupa.Model.Estado", b =>
