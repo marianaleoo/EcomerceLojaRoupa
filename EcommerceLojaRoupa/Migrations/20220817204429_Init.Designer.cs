@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcommerceLojaRoupa.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220817022523_Init")]
+    [Migration("20220817204429_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,24 @@ namespace EcommerceLojaRoupa.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("EcommerceLojaRoupa.Model.Bandeira", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DataCadastro")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Descricao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Bandeira");
+                });
 
             modelBuilder.Entity("EcommerceLojaRoupa.Model.CarrinhoCompra", b =>
                 {
@@ -43,8 +61,8 @@ namespace EcommerceLojaRoupa.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("BandeiraCartao")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("BandeiraCartaoId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime2");
@@ -59,6 +77,8 @@ namespace EcommerceLojaRoupa.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BandeiraCartaoId");
 
                     b.ToTable("CartaoCredito");
                 });
@@ -473,6 +493,15 @@ namespace EcommerceLojaRoupa.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Usuario");
+                });
+
+            modelBuilder.Entity("EcommerceLojaRoupa.Model.CartaoCredito", b =>
+                {
+                    b.HasOne("EcommerceLojaRoupa.Model.Bandeira", "BandeiraCartao")
+                        .WithMany()
+                        .HasForeignKey("BandeiraCartaoId");
+
+                    b.Navigation("BandeiraCartao");
                 });
 
             modelBuilder.Entity("EcommerceLojaRoupa.Model.Cidade", b =>

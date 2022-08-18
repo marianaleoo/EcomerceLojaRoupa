@@ -8,6 +8,20 @@ namespace EcommerceLojaRoupa.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Bandeira",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bandeira", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CarrinhoCompra",
                 columns: table => new
                 {
@@ -18,23 +32,6 @@ namespace EcommerceLojaRoupa.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CarrinhoCompra", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CartaoCredito",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NumeroCartao = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NomeCartao = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BandeiraCartao = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    codigoSeguranca = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CartaoCredito", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -239,6 +236,29 @@ namespace EcommerceLojaRoupa.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CartaoCredito",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NumeroCartao = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NomeCartao = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BandeiraCartaoId = table.Column<int>(type: "int", nullable: true),
+                    codigoSeguranca = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CartaoCredito", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CartaoCredito_Bandeira_BandeiraCartaoId",
+                        column: x => x.BandeiraCartaoId,
+                        principalTable: "Bandeira",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Estado",
                 columns: table => new
                 {
@@ -343,6 +363,11 @@ namespace EcommerceLojaRoupa.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_CartaoCredito_BandeiraCartaoId",
+                table: "CartaoCredito",
+                column: "BandeiraCartaoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Cidade_estadoId",
                 table: "Cidade",
                 column: "estadoId");
@@ -414,6 +439,9 @@ namespace EcommerceLojaRoupa.Migrations
 
             migrationBuilder.DropTable(
                 name: "Usuario");
+
+            migrationBuilder.DropTable(
+                name: "Bandeira");
 
             migrationBuilder.DropTable(
                 name: "Cidade");

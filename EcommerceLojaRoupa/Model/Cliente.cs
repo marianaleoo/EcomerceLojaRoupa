@@ -18,6 +18,7 @@ namespace EcommerceLojaRoupa.Model
         public string Senha { get; set; }
         public string ConfirmarSenha { get; set; }
         public Endereco EnderecoCobranca { get; set; }
+        public CartaoCredito CartaoCredito { get; set; }
 
     }
 }

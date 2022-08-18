@@ -31,6 +31,7 @@ namespace EcommerceLojaRoupa.Model
         public DbSet<Cliente> Cliente { get; set; }
         public DbSet<CarrinhoCompra> CarrinhoCompra { get; set; }
         public DbSet<TipoEndereco> TipoEndereco { get; set; }
+        public DbSet<Bandeira> Bandeira { get; set; }
 
 
 

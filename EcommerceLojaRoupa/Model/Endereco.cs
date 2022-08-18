@@ -21,6 +21,9 @@ namespace EcommerceLojaRoupa.Model
         public Cidade Cidade { get; set; }
         public int ClienteId { get; set; }
 
+        [ForeignKey("ClienteId")]
+        public Cliente Cliente { get; set; }
+
         public int TipoEnderecoId { get; set; }
 
         [ForeignKey("TipoEnderecoId")]
