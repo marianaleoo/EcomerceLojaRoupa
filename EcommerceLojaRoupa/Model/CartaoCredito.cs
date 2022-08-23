@@ -10,12 +10,16 @@ namespace EcommerceLojaRoupa.Model
     {
         public string NumeroCartao { get; set; }
         public string NomeCartao { get; set; }
+
+        public int BandeiraCartaoId { get; set; }
+
+        [ForeignKey("BandeiraCartaoId")]
         public Bandeira BandeiraCartao { get; set; }
-        public string codigoSeguranca { get; set; }
+        public string CodigoSeguranca { get; set; }
 
         public int ClienteId { get; set; }
 
-        [ForeignKey("ClienteId")]
-        public Cliente Cliente { get; set; }
+        //[ForeignKey("ClienteId")]
+        //public Cliente Cliente { get; set; }
     }
 }
