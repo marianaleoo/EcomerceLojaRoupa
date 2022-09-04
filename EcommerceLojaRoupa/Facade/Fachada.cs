@@ -25,6 +25,7 @@ namespace EcommerceLojaRoupa.Facade
             daos["Endereco"] = new EnderecoDao(dbContext);
             daos["TipoEndereco"] = new TipoEnderecoDao(dbContext);
             daos["Bandeira"] = new BandeiraDao(dbContext);
+            daos["Genero"] = new GeneroDao(dbContext);
             //daos = new Dictionary<string, IDao>();
             //daos["CarrinhoCompra"] = carrinhoCompraDao;
         }

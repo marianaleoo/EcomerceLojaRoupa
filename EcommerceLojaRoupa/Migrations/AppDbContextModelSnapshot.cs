@@ -59,11 +59,14 @@ namespace EcommerceLojaRoupa.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BandeiraCartaoId")
+                    b.Property<int>("BandeiraCartaoId")
                         .HasColumnType("int");
 
                     b.Property<int>("ClienteId")
                         .HasColumnType("int");
+
+                    b.Property<string>("CodigoSeguranca")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime2");
@@ -72,9 +75,6 @@ namespace EcommerceLojaRoupa.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NumeroCartao")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("codigoSeguranca")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -153,8 +153,8 @@ namespace EcommerceLojaRoupa.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Genero")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("GeneroId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");
@@ -166,6 +166,8 @@ namespace EcommerceLojaRoupa.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GeneroId");
 
                     b.ToTable("Cliente");
                 });
@@ -333,6 +335,24 @@ namespace EcommerceLojaRoupa.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Estoque");
+                });
+
+            modelBuilder.Entity("EcommerceLojaRoupa.Model.Genero", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DataCadastro")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Descricao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Genero");
                 });
 
             modelBuilder.Entity("EcommerceLojaRoupa.Model.ItemCarrinho", b =>
@@ -503,17 +523,17 @@ namespace EcommerceLojaRoupa.Migrations
                 {
                     b.HasOne("EcommerceLojaRoupa.Model.Bandeira", "BandeiraCartao")
                         .WithMany()
-                        .HasForeignKey("BandeiraCartaoId");
+                        .HasForeignKey("BandeiraCartaoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("EcommerceLojaRoupa.Model.Cliente", "Cliente")
+                    b.HasOne("EcommerceLojaRoupa.Model.Cliente", null)
                         .WithOne("CartaoCredito")
                         .HasForeignKey("EcommerceLojaRoupa.Model.CartaoCredito", "ClienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("BandeiraCartao");
-
-                    b.Navigation("Cliente");
                 });
 
             modelBuilder.Entity("EcommerceLojaRoupa.Model.Cidade", b =>
@@ -527,9 +547,20 @@ namespace EcommerceLojaRoupa.Migrations
                     b.Navigation("Estado");
                 });
 
+            modelBuilder.Entity("EcommerceLojaRoupa.Model.Cliente", b =>
+                {
+                    b.HasOne("EcommerceLojaRoupa.Model.Genero", "Genero")
+                        .WithMany()
+                        .HasForeignKey("GeneroId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Genero");
+                });
+
             modelBuilder.Entity("EcommerceLojaRoupa.Model.Endereco", b =>
                 {
-                    b.HasOne("EcommerceLojaRoupa.Model.Cliente", "Cliente")
+                    b.HasOne("EcommerceLojaRoupa.Model.Cliente", null)
                         .WithOne("EnderecoCobranca")
                         .HasForeignKey("EcommerceLojaRoupa.Model.Endereco", "ClienteId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -548,8 +579,6 @@ namespace EcommerceLojaRoupa.Migrations
                         .IsRequired();
 
                     b.Navigation("Cidade");
-
-                    b.Navigation("Cliente");
 
                     b.Navigation("TipoEndereco");
                 });

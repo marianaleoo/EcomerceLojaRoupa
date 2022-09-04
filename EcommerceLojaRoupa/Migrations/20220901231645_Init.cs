@@ -48,29 +48,6 @@ namespace EcommerceLojaRoupa.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Cliente",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Ativo = table.Column<bool>(type: "bit", nullable: false),
-                    Codigo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Genero = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DataNascimento = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Cpf = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Telefone = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Senha = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConfirmarSenha = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cliente", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Compra",
                 columns: table => new
                 {
@@ -139,6 +116,20 @@ namespace EcommerceLojaRoupa.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Estoque", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Genero",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Genero", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -236,26 +227,32 @@ namespace EcommerceLojaRoupa.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CartaoCredito",
+                name: "Cliente",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NumeroCartao = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NomeCartao = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BandeiraCartaoId = table.Column<int>(type: "int", nullable: true),
-                    codigoSeguranca = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Ativo = table.Column<bool>(type: "bit", nullable: false),
+                    Codigo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DataNascimento = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Cpf = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Telefone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Senha = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConfirmarSenha = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GeneroId = table.Column<int>(type: "int", nullable: false),
                     DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CartaoCredito", x => x.Id);
+                    table.PrimaryKey("PK_Cliente", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CartaoCredito_Bandeira_BandeiraCartaoId",
-                        column: x => x.BandeiraCartaoId,
-                        principalTable: "Bandeira",
+                        name: "FK_Cliente_Genero_GeneroId",
+                        column: x => x.GeneroId,
+                        principalTable: "Genero",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -302,6 +299,36 @@ namespace EcommerceLojaRoupa.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CartaoCredito",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NumeroCartao = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NomeCartao = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BandeiraCartaoId = table.Column<int>(type: "int", nullable: false),
+                    CodigoSeguranca = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClienteId = table.Column<int>(type: "int", nullable: false),
+                    DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CartaoCredito", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CartaoCredito_Bandeira_BandeiraCartaoId",
+                        column: x => x.BandeiraCartaoId,
+                        principalTable: "Bandeira",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CartaoCredito_Cliente_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "Cliente",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Cidade",
                 columns: table => new
                 {
@@ -334,8 +361,8 @@ namespace EcommerceLojaRoupa.Migrations
                     Numero = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Bairro = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Cep = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    cidadeId = table.Column<int>(type: "int", nullable: false),
                     ClienteId = table.Column<int>(type: "int", nullable: false),
+                    cidadeId = table.Column<int>(type: "int", nullable: false),
                     TipoEnderecoId = table.Column<int>(type: "int", nullable: false),
                     DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -368,9 +395,20 @@ namespace EcommerceLojaRoupa.Migrations
                 column: "BandeiraCartaoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CartaoCredito_ClienteId",
+                table: "CartaoCredito",
+                column: "ClienteId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Cidade_estadoId",
                 table: "Cidade",
                 column: "estadoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cliente_GeneroId",
+                table: "Cliente",
+                column: "GeneroId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Endereco_cidadeId",
@@ -457,6 +495,9 @@ namespace EcommerceLojaRoupa.Migrations
 
             migrationBuilder.DropTable(
                 name: "Estado");
+
+            migrationBuilder.DropTable(
+                name: "Genero");
 
             migrationBuilder.DropTable(
                 name: "Pais");

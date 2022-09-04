@@ -19,7 +19,5 @@ namespace EcommerceLojaRoupa.Model
 
         public int ClienteId { get; set; }
 
-        //[ForeignKey("ClienteId")]
-        //public Cliente Cliente { get; set; }
     }
 }

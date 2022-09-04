@@ -33,6 +33,7 @@ namespace EcommerceLojaRoupa.Dao
 
             await _context.Cliente.Include(c => c.EnderecoCobranca.Cidade.Estado.Pais).ToListAsync();
             await _context.Cliente.Include(c => c.CartaoCredito).ToListAsync();
+            await _context.Cliente.Include(c => c.Genero).ToListAsync();
 
             return  _context.Cliente;
 
@@ -50,6 +51,9 @@ namespace EcommerceLojaRoupa.Dao
         {
             Cliente cliente = (Cliente)entidadeDominio;
             _context.Entry(cliente).State = EntityState.Modified;
+            _context.Entry(cliente.Genero).State = EntityState.Modified;
+            _context.Entry(cliente.EnderecoCobranca).State = EntityState.Modified;
+            _context.Entry(cliente.CartaoCredito).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
 
