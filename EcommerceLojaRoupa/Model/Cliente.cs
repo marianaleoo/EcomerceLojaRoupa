@@ -13,7 +13,11 @@ namespace EcommerceLojaRoupa.Model
         public string Nome { get; set; }
         public DateTime DataNascimento { get; set; }
         public string Cpf { get; set; }
+        public string DDD { get; set; }
         public string Telefone { get; set; }
+        public int TipoTelefoneId { get; set; }
+        [ForeignKey("TipoTelefoneId")]
+        public TipoTelefone TipoTelefone { get; set; }
         public string Email { get; set; }
         public string Senha { get; set; }
         public string ConfirmarSenha { get; set; }

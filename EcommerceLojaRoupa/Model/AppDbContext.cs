@@ -33,6 +33,7 @@ namespace EcommerceLojaRoupa.Model
         public DbSet<TipoEndereco> TipoEndereco { get; set; }
         public DbSet<Bandeira> Bandeira { get; set; }
         public DbSet<Genero> Genero { get; set; }
+        public DbSet<TipoTelefone> TipoTelefone { get; set; }
 
 
 

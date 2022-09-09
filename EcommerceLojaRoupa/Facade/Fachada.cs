@@ -1,6 +1,7 @@
 ﻿using EcommerceLojaCartaoCredito.Dao;
 using EcommerceLojaRoupa.Dao;
 using EcommerceLojaRoupa.Model;
+using EcommerceLojaRoupa.Strategy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,17 @@ namespace EcommerceLojaRoupa.Facade
     public class Fachada : IFachada
     {
         private Dictionary<String, IDao> daos;
+        private Dictionary<String, List<IStrategy>> rNegocio;
 
         public Fachada(AppDbContext dbContext)
         {
+            DefinirDaos(dbContext);
+            DefinirNegocio(dbContext);
+        }
+
+        private void DefinirDaos(AppDbContext dbContext)
+        {
+
             daos = new Dictionary<string, IDao>();
             daos["Cliente"] = new ClienteDao(dbContext);
             daos["Roupa"] = new RoupaDao(dbContext);
@@ -26,16 +35,23 @@ namespace EcommerceLojaRoupa.Facade
             daos["TipoEndereco"] = new TipoEnderecoDao(dbContext);
             daos["Bandeira"] = new BandeiraDao(dbContext);
             daos["Genero"] = new GeneroDao(dbContext);
-            //daos = new Dictionary<string, IDao>();
-            //daos["CarrinhoCompra"] = carrinhoCompraDao;
+            daos["TipoTelefone"] = new TipoTelefoneDao(dbContext);
         }
 
-        //private void DefinirDaos()
-        //{
-        //    daos = new Dictionary<string, IDao>();
-        //    ClienteDao clienteDao = new ClienteDao();
-        //    daos["Cliente"] = clienteDao;
-        //}
+        private void DefinirNegocio(AppDbContext dbContext)
+        {
+            rNegocio = new Dictionary<string, List<IStrategy>>();
+            List<IStrategy> rNegocioCliente = new List<IStrategy>();
+            ValidadorCpf validCpf = new ValidadorCpf();
+            rNegocioCliente.Add(validCpf);
+            rNegocio["Cliente"] = rNegocioCliente;
+            ValidadorDadosCliente validDadosCliente = new ValidadorDadosCliente();
+            rNegocioCliente.Add(validDadosCliente);
+            rNegocio["Cliente"] = rNegocioCliente;
+            ValidadorEndereco validEndereco = new ValidadorEndereco();
+            rNegocioCliente.Add(validEndereco);
+            rNegocio["Cliente"] = rNegocioCliente;
+        }
 
         public async Task<EntidadeDominio> Alterar(EntidadeDominio entidadeDominio)
         {
@@ -53,6 +69,19 @@ namespace EcommerceLojaRoupa.Facade
 
         public async Task<EntidadeDominio> Salvar(EntidadeDominio entidadeDominio)
         {
+            if (rNegocio.ContainsKey(entidadeDominio.GetType().Name))
+            {
+                List<IStrategy> validacoes = this.rNegocio[entidadeDominio.GetType().Name];
+                string resultado = "";
+                foreach (var item in validacoes)
+                {
+                    resultado += item.Processar(entidadeDominio);
+                }
+                if (!string.IsNullOrEmpty(resultado))
+                {
+                    throw new Exception(resultado);
+                }
+            }
             try
             {
                 IDao dao = this.daos[entidadeDominio.GetType().Name];
