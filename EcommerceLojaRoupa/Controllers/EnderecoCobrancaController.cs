@@ -10,14 +10,14 @@ namespace EcommerceLojaRoupa.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EnderecoController : ControllerBase
+    public class EnderecoCobrancaController : ControllerBase
     {
         private readonly CommandSalvar _commandSalvar;
         private readonly CommandAlterar _commandAlterar;
         private readonly CommandExcluir _commandExcluir;
         private readonly CommandConsultar _commandConsultar;
 
-        public EnderecoController(CommandSalvar commandSalvar, CommandAlterar commandAlterar, CommandExcluir commandExcluir, CommandConsultar commandConsultar)
+        public EnderecoCobrancaController(CommandSalvar commandSalvar, CommandAlterar commandAlterar, CommandExcluir commandExcluir, CommandConsultar commandConsultar)
         {
             _commandSalvar = commandSalvar;
             _commandAlterar = commandAlterar;
@@ -26,13 +26,13 @@ namespace EcommerceLojaRoupa.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IAsyncEnumerable<Endereco>>> Consultar()
+        public async Task<ActionResult<IAsyncEnumerable<EnderecoCobranca>>> Consultar()
         {
-            Endereco Endereco = new Endereco();
+            EnderecoCobranca enderecoCobranca = new EnderecoCobranca();
             try
             {
-                var Enderecos = await _commandConsultar.Executar(Endereco);
-                return Ok(Enderecos);
+                var enderecosCobranca = await _commandConsultar.Executar(enderecoCobranca);
+                return Ok(enderecosCobranca);
             }
             catch (Exception)
             {
@@ -42,14 +42,14 @@ namespace EcommerceLojaRoupa.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult> Alterar(int id, [FromBody] Endereco endereco)
+        public async Task<ActionResult> Alterar(int id, [FromBody] EnderecoCobranca enderecoCobranca)
         {
             try
             {
-                Endereco enderecoID = new Endereco();
-                enderecoID.Id = id;
-                await _commandAlterar.Executar(endereco);
-                return Ok($"Endereco com id={id} foi atualizado com sucesso");
+                EnderecoCobranca enderecoCobrancaID = new EnderecoCobranca();
+                enderecoCobrancaID.Id = id;
+                await _commandAlterar.Executar(enderecoCobranca);
+                return Ok($"Endereco cobrança de id={id} foi atualizado com sucesso");
             }
             catch (Exception ex)
             {
@@ -61,12 +61,12 @@ namespace EcommerceLojaRoupa.Controllers
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> Excluir(int id)
         {
-            Endereco endereco = new Endereco();
-            endereco.Id = id;
+            EnderecoCobranca enderecoCobranca = new EnderecoCobranca();
+            enderecoCobranca.Id = id;
             try
             {
-                await _commandExcluir.Executar(endereco);
-                return Ok($"Endereco de id={id} foi excluído com sucesso");
+                await _commandExcluir.Executar(enderecoCobranca);
+                return Ok($"Endereco cobrança de id={id} foi excluído com sucesso");
             }
             catch (Exception ex)
             {

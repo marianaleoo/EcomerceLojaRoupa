@@ -23,14 +23,14 @@ namespace EcommerceLojaRoupa.Model
         public DbSet<Compra> Compra { get; set; }
         public DbSet<CupomPromocional> CupomPromocional { get; set; }
         public DbSet<CupomTroca> CupomTroca { get; set; }
-        public DbSet<Endereco> Endereco { get; set; }
+        public DbSet<EnderecoCobranca> EnderecoCobranca { get; set; }
+        public DbSet<EnderecoEntrega> EnderecoEntrega { get; set; }
         public DbSet<Estado> Estado { get; set; }
         public DbSet<ItemCompra> ItemCompra { get; set; }
         public DbSet<Pais> Pais { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<Cliente> Cliente { get; set; }
         public DbSet<CarrinhoCompra> CarrinhoCompra { get; set; }
-        public DbSet<TipoEndereco> TipoEndereco { get; set; }
         public DbSet<Bandeira> Bandeira { get; set; }
         public DbSet<Genero> Genero { get; set; }
         public DbSet<TipoTelefone> TipoTelefone { get; set; }

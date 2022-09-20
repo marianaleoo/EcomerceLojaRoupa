@@ -198,7 +198,7 @@ namespace EcommerceLojaRoupa.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TipoEndereco",
+                name: "TipoTelefone",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -208,7 +208,7 @@ namespace EcommerceLojaRoupa.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TipoEndereco", x => x.Id);
+                    table.PrimaryKey("PK_TipoTelefone", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -224,35 +224,6 @@ namespace EcommerceLojaRoupa.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Usuario", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Cliente",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Ativo = table.Column<bool>(type: "bit", nullable: false),
-                    Codigo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DataNascimento = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Cpf = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Telefone = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Senha = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConfirmarSenha = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GeneroId = table.Column<int>(type: "int", nullable: false),
-                    DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cliente", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Cliente_Genero_GeneroId",
-                        column: x => x.GeneroId,
-                        principalTable: "Genero",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -299,6 +270,64 @@ namespace EcommerceLojaRoupa.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Cliente",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Ativo = table.Column<bool>(type: "bit", nullable: false),
+                    Codigo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DataNascimento = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Cpf = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DDD = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Telefone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TipoTelefoneId = table.Column<int>(type: "int", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Senha = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConfirmarSenha = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GeneroId = table.Column<int>(type: "int", nullable: false),
+                    DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cliente", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cliente_Genero_GeneroId",
+                        column: x => x.GeneroId,
+                        principalTable: "Genero",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Cliente_TipoTelefone_TipoTelefoneId",
+                        column: x => x.TipoTelefoneId,
+                        principalTable: "TipoTelefone",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cidade",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    estadoId = table.Column<int>(type: "int", nullable: false),
+                    DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cidade", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cidade_Estado_estadoId",
+                        column: x => x.estadoId,
+                        principalTable: "Estado",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CartaoCredito",
                 columns: table => new
                 {
@@ -329,28 +358,7 @@ namespace EcommerceLojaRoupa.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Cidade",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    estadoId = table.Column<int>(type: "int", nullable: false),
-                    DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cidade", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Cidade_Estado_estadoId",
-                        column: x => x.estadoId,
-                        principalTable: "Estado",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Endereco",
+                name: "EnderecoCobranca",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -363,28 +371,54 @@ namespace EcommerceLojaRoupa.Migrations
                     Cep = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ClienteId = table.Column<int>(type: "int", nullable: false),
                     cidadeId = table.Column<int>(type: "int", nullable: false),
-                    TipoEnderecoId = table.Column<int>(type: "int", nullable: false),
                     DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Endereco", x => x.Id);
+                    table.PrimaryKey("PK_EnderecoCobranca", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Endereco_Cidade_cidadeId",
+                        name: "FK_EnderecoCobranca_Cidade_cidadeId",
                         column: x => x.cidadeId,
                         principalTable: "Cidade",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Endereco_Cliente_ClienteId",
+                        name: "FK_EnderecoCobranca_Cliente_ClienteId",
                         column: x => x.ClienteId,
                         principalTable: "Cliente",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EnderecoEntrega",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TipoResidencia = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TipoLogradouro = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Logradouro = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Numero = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Bairro = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Cep = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClienteId = table.Column<int>(type: "int", nullable: false),
+                    cidadeId = table.Column<int>(type: "int", nullable: false),
+                    DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EnderecoEntrega", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Endereco_TipoEndereco_TipoEnderecoId",
-                        column: x => x.TipoEnderecoId,
-                        principalTable: "TipoEndereco",
+                        name: "FK_EnderecoEntrega_Cidade_cidadeId",
+                        column: x => x.cidadeId,
+                        principalTable: "Cidade",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EnderecoEntrega_Cliente_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "Cliente",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -411,20 +445,31 @@ namespace EcommerceLojaRoupa.Migrations
                 column: "GeneroId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Endereco_cidadeId",
-                table: "Endereco",
+                name: "IX_Cliente_TipoTelefoneId",
+                table: "Cliente",
+                column: "TipoTelefoneId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EnderecoCobranca_cidadeId",
+                table: "EnderecoCobranca",
                 column: "cidadeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Endereco_ClienteId",
-                table: "Endereco",
+                name: "IX_EnderecoCobranca_ClienteId",
+                table: "EnderecoCobranca",
                 column: "ClienteId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Endereco_TipoEnderecoId",
-                table: "Endereco",
-                column: "TipoEnderecoId");
+                name: "IX_EnderecoEntrega_cidadeId",
+                table: "EnderecoEntrega",
+                column: "cidadeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EnderecoEntrega_ClienteId",
+                table: "EnderecoEntrega",
+                column: "ClienteId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Estado_paisId",
@@ -461,7 +506,10 @@ namespace EcommerceLojaRoupa.Migrations
                 name: "DetalheAtivacao");
 
             migrationBuilder.DropTable(
-                name: "Endereco");
+                name: "EnderecoCobranca");
+
+            migrationBuilder.DropTable(
+                name: "EnderecoEntrega");
 
             migrationBuilder.DropTable(
                 name: "Estoque");
@@ -488,9 +536,6 @@ namespace EcommerceLojaRoupa.Migrations
                 name: "Cliente");
 
             migrationBuilder.DropTable(
-                name: "TipoEndereco");
-
-            migrationBuilder.DropTable(
                 name: "Roupa");
 
             migrationBuilder.DropTable(
@@ -498,6 +543,9 @@ namespace EcommerceLojaRoupa.Migrations
 
             migrationBuilder.DropTable(
                 name: "Genero");
+
+            migrationBuilder.DropTable(
+                name: "TipoTelefone");
 
             migrationBuilder.DropTable(
                 name: "Pais");

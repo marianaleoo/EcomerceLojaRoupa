@@ -1,0 +1,65 @@
+﻿using EcommerceLojaRoupa.Model;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace EcommerceLojaRoupa.Dao
+{
+    public class EnderecoEntregaDao : IDao
+    {
+        private readonly AppDbContext _context;
+
+        public EnderecoEntregaDao(AppDbContext context)
+        {
+            _context = context;
+        }
+
+        public EnderecoEntregaDao()
+        {
+        }
+
+        public async Task<IEnumerable<EntidadeDominio>> Consultar(EntidadeDominio entidadeDominio)
+        {
+            EnderecoEntrega enderecoEntrega = (EnderecoEntrega)entidadeDominio;
+            if (enderecoEntrega.Id != 0)
+            {
+                List<EntidadeDominio> enderecosEntrega = new List<EntidadeDominio>();
+                enderecosEntrega.Add(await ConsultarId(enderecoEntrega.Id));
+                return enderecosEntrega;
+            }
+            return await _context.EnderecoEntrega.Include(c => c.Cidade.Estado.Pais).ToListAsync();
+        }
+
+        public async Task<EntidadeDominio> ConsultarId(int id)
+        {
+            var entidadeDominio = await _context.EnderecoEntrega.FindAsync(id);
+            return entidadeDominio;
+        }
+
+        public async Task Salvar(EntidadeDominio entidadeDominio)
+        {
+            EnderecoEntrega enderecoEntrega = (EnderecoEntrega)entidadeDominio;
+            _context.EnderecoEntrega.Add(enderecoEntrega);
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task Alterar(EntidadeDominio entidadeDominio)
+        {
+            EnderecoEntrega enderecoEntrega = (EnderecoEntrega)entidadeDominio;
+            _context.Entry(enderecoEntrega).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task Excluir(EntidadeDominio entidadeDominio)
+        {
+            EnderecoEntrega enderecoEntrega = (EnderecoEntrega)entidadeDominio;
+
+            var enderecoEntregaBanco = (EnderecoEntrega)await ConsultarId(enderecoEntrega.Id);
+            _context.EnderecoEntrega.Remove(enderecoEntregaBanco);
+            await _context.SaveChangesAsync();
+
+        }
+    }
+}
+

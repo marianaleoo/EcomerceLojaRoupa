@@ -31,8 +31,8 @@ namespace EcommerceLojaRoupa.Facade
             daos["Estado"] = new EstadoDao(dbContext);
             daos["Pais"] = new PaisDao(dbContext);
             daos["CartaoCredito"] = new CartaoCreditoDao(dbContext);
-            daos["Endereco"] = new EnderecoDao(dbContext);
-            daos["TipoEndereco"] = new TipoEnderecoDao(dbContext);
+            daos["EnderecoCobranca"] = new EnderecoCobrancaDao(dbContext);
+            daos["EnderecoEntrega"] = new EnderecoEntregaDao(dbContext);
             daos["Bandeira"] = new BandeiraDao(dbContext);
             daos["Genero"] = new GeneroDao(dbContext);
             daos["TipoTelefone"] = new TipoTelefoneDao(dbContext);

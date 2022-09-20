@@ -33,8 +33,6 @@ namespace EcommerceLojaRoupa
         {
 
             services.AddControllers();
-            //services.AddControllers().AddJsonOptions(x =>
-            //x.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EcommerceLojaRoupa", Version = "v1" });
