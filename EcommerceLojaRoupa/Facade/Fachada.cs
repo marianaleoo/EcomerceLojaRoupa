@@ -36,6 +36,7 @@ namespace EcommerceLojaRoupa.Facade
             daos["Bandeira"] = new BandeiraDao(dbContext);
             daos["Genero"] = new GeneroDao(dbContext);
             daos["TipoTelefone"] = new TipoTelefoneDao(dbContext);
+            
         }
 
         private void DefinirNegocio(AppDbContext dbContext)
@@ -55,6 +56,19 @@ namespace EcommerceLojaRoupa.Facade
 
         public async Task<EntidadeDominio> Alterar(EntidadeDominio entidadeDominio)
         {
+            if (rNegocio.ContainsKey(entidadeDominio.GetType().Name))
+            {
+                List<IStrategy> validacoes = this.rNegocio[entidadeDominio.GetType().Name];
+                string resultado = "";
+                foreach (var item in validacoes)
+                {
+                    resultado += item.Processar(entidadeDominio);
+                }
+                if (!string.IsNullOrEmpty(resultado))
+                {
+                    throw new Exception(resultado);
+                }
+            }
             try
             {
                 IDao dao = this.daos[entidadeDominio.GetType().Name];
@@ -122,6 +136,22 @@ namespace EcommerceLojaRoupa.Facade
                 throw ex;
             }
             return entidadeDominio;
+        }
+
+        public async Task<IEnumerable<EntidadeDominio>> ConsultarCliente(string nome, string cpf, string telefone)
+        {
+            EntidadeDominio entidadeDominio = new EntidadeDominio();
+            Cliente cliente = (Cliente)entidadeDominio;
+
+            try
+            {
+                IDao dao = this.daos[entidadeDominio.GetType().Name];
+                return (IEnumerable<EntidadeDominio>)await dao.ConsultarCliente(nome, cpf, telefone) ;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

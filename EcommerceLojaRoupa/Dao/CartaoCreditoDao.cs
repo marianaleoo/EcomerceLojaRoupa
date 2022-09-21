@@ -60,5 +60,10 @@ namespace EcommerceLojaCartaoCredito.Dao
             var entidadeDominio = await _context.CartaoCredito.FindAsync(id);
             return entidadeDominio;
         }
+
+        public Task<EntidadeDominio> ConsultarCliente(string nome, string cpf, string telefone)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

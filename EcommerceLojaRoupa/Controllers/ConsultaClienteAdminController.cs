@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EcommerceLojaRoupa.Controllers
@@ -20,19 +21,27 @@ namespace EcommerceLojaRoupa.Controllers
             _commandConsultar = commandConsultar;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IAsyncEnumerable<Cliente>>> Consultar()
+
+        [HttpGet("{nome:string, cpf:string, telefone:string }", Name = "GetCliente")]
+        public async Task<ActionResult<Cliente>> GetCliente(string nome, string cpf, string telefone)
         {
-            Cliente cliente = new Cliente();
             try
             {
-                var clientes = await _commandConsultar.Executar(cliente);
-                return Ok(clientes);
+                var listaRetorno = (IEnumerable<EntidadeDominio>)
+                await _commandConsultar.ExecutarCliente(nome, cpf, telefone);
+                if (listaRetorno.Count() <= 0)
+                {
+                    return NotFound($"Não existe cliente");
+                }
+                else
+                {
+                    return Ok(listaRetorno);
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao obter clientes");
+                return BadRequest(ex.Message);
             }
         }
     }

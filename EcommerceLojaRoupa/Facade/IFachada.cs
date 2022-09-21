@@ -12,6 +12,7 @@ namespace EcommerceLojaRoupa.Facade
         Task<EntidadeDominio> Alterar(EntidadeDominio entidadeDominio);
         Task<EntidadeDominio> Excluir(EntidadeDominio entidadeDominio);
         Task<IEnumerable<EntidadeDominio>> Consultar(EntidadeDominio entidade);
+        Task<IEnumerable<EntidadeDominio>> ConsultarCliente(string nome, string cpf, string telefone);
 
     }
 }

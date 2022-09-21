@@ -60,6 +60,11 @@ namespace EcommerceLojaRoupa.Dao
             await _context.SaveChangesAsync();
 
         }
+
+        public Task<EntidadeDominio> ConsultarCliente(string nome, string cpf, string telefone)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
 

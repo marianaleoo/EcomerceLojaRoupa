@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace EcommerceLojaRoupa.Controllers
 {
+
+    [Route("api/[controller]")]
+    [ApiController]
     public class TipoTelefoneController : ControllerBase
     {
         private readonly CommandSalvar _commandSalvar;

@@ -59,6 +59,11 @@ namespace EcommerceLojaRoupa.Dao
             var entidadeDominio = await _context.Bandeira.FindAsync(id);
             return entidadeDominio;
         }
+
+        public Task<EntidadeDominio> ConsultarCliente(string nome, string cpf, string telefone)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
 
