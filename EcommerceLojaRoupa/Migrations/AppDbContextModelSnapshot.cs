@@ -59,7 +59,7 @@ namespace EcommerceLojaRoupa.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BandeiraCartaoId")
+                    b.Property<int>("BandeiraId")
                         .HasColumnType("int");
 
                     b.Property<int>("ClienteId")
@@ -79,7 +79,7 @@ namespace EcommerceLojaRoupa.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BandeiraCartaoId");
+                    b.HasIndex("BandeiraId");
 
                     b.HasIndex("ClienteId")
                         .IsUnique();
@@ -409,9 +409,6 @@ namespace EcommerceLojaRoupa.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Data")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime2");
 
@@ -568,9 +565,9 @@ namespace EcommerceLojaRoupa.Migrations
 
             modelBuilder.Entity("EcommerceLojaRoupa.Model.CartaoCredito", b =>
                 {
-                    b.HasOne("EcommerceLojaRoupa.Model.Bandeira", "BandeiraCartao")
+                    b.HasOne("EcommerceLojaRoupa.Model.Bandeira", "Bandeira")
                         .WithMany()
-                        .HasForeignKey("BandeiraCartaoId")
+                        .HasForeignKey("BandeiraId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -580,7 +577,7 @@ namespace EcommerceLojaRoupa.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("BandeiraCartao");
+                    b.Navigation("Bandeira");
                 });
 
             modelBuilder.Entity("EcommerceLojaRoupa.Model.Cidade", b =>

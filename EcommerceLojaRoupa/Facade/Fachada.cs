@@ -138,20 +138,5 @@ namespace EcommerceLojaRoupa.Facade
             return entidadeDominio;
         }
 
-        public async Task<IEnumerable<EntidadeDominio>> ConsultarCliente(string nome, string cpf, string telefone)
-        {
-            EntidadeDominio entidadeDominio = new EntidadeDominio();
-            Cliente cliente = (Cliente)entidadeDominio;
-
-            try
-            {
-                IDao dao = this.daos[entidadeDominio.GetType().Name];
-                return (IEnumerable<EntidadeDominio>)await dao.ConsultarCliente(nome, cpf, telefone) ;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
     }
 }

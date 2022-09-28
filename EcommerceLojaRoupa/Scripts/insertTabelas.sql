@@ -3,8 +3,6 @@ insert into Bandeira(Descricao, DataCadastro) values ('Visa' , SYSDATETIME())
 insert into Pais(Descricao, DataCadastro) values ('Brasil' , SYSDATETIME())
 insert into Estado(Descricao, paisId, DataCadastro) values ('São Paulo' , 1,  SYSDATETIME())
 insert into Cidade(Descricao, estadoId, DataCadastro) values ('Mogi das Cruzes' , 1, SYSDATETIME())
-insert into TipoEndereco(Descricao, DataCadastro) values ('Cobrança' ,  SYSDATETIME())
-insert into TipoEndereco(Descricao, DataCadastro) values ('Entrega' , SYSDATETIME())
 insert into TipoTelefone(Descricao, DataCadastro) values ('Celular' ,  SYSDATETIME())
 insert into TipoTelefone(Descricao, DataCadastro) values ('Telefone' , SYSDATETIME())
 insert into Genero(Descricao, DataCadastro) values('Feminino', SYSDATETIME())
@@ -16,5 +14,4 @@ select * from Bandeira
 select * from Pais
 select * from Estado
 select * from Cidade
-select * from TipoEndereco
 select * from Genero

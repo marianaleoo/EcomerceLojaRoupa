@@ -20,10 +20,5 @@ namespace EcommerceLojaRoupa.Command
         {
             return await _fachada.Consultar(entidadeDominio);
         }
-
-        public async Task<Object> ExecutarCliente(string nome, string cpf, string telefone)
-        {
-            return await _fachada.ConsultarCliente(nome, cpf, telefone);
-        }
     }
 }

@@ -23,6 +23,7 @@ namespace EcommerceLojaRoupa.Dao
 
         public async Task<IEnumerable<EntidadeDominio>> Consultar(EntidadeDominio entidadeDominio)
         {
+            
             Cliente cliente = (Cliente)entidadeDominio;
             if(cliente.Id != 0)
             {
@@ -30,7 +31,34 @@ namespace EcommerceLojaRoupa.Dao
                 clientes.Add(await ConsultarId(cliente.Id));
                 return clientes;
             }
-
+            if (cliente.Nome != null)
+            {
+                await _context.Cliente.FirstOrDefaultAsync(c => c.Nome == cliente.Nome);
+                await _context.Cliente.Include(c => c.EnderecoCobranca.Cidade.Estado.Pais).FirstOrDefaultAsync(c => c.Nome == cliente.Nome);
+                await _context.Cliente.Include(c => c.EnderecoEntrega.Cidade.Estado.Pais).FirstOrDefaultAsync(c => c.Nome == cliente.Nome);
+                await _context.Cliente.Include(c => c.CartaoCredito).FirstOrDefaultAsync(c => c.Nome == cliente.Nome);
+                await _context.Cliente.Include(c => c.Genero).FirstOrDefaultAsync(c => c.Nome == cliente.Nome); 
+                return _context.Cliente;
+            }
+            if (cliente.Cpf != null)
+            {
+                await _context.Cliente.FirstOrDefaultAsync(c => c.Cpf == cliente.Cpf);
+                await _context.Cliente.Include(c => c.EnderecoCobranca.Cidade.Estado.Pais).FirstOrDefaultAsync(c => c.Cpf == cliente.Cpf);
+                await _context.Cliente.Include(c => c.EnderecoEntrega.Cidade.Estado.Pais).FirstOrDefaultAsync(c => c.Cpf == cliente.Cpf);
+                await _context.Cliente.Include(c => c.CartaoCredito).FirstOrDefaultAsync(c => c.Cpf == cliente.Cpf);
+                await _context.Cliente.Include(c => c.Genero).FirstOrDefaultAsync(c => c.Cpf == cliente.Cpf);
+                return _context.Cliente;
+            }
+            if (cliente.Telefone != null)
+            {
+                await _context.Cliente.FirstOrDefaultAsync(c => c.Telefone == cliente.Telefone);
+                await _context.Cliente.Include(c => c.EnderecoCobranca.Cidade.Estado.Pais).FirstOrDefaultAsync(c => c.Telefone == cliente.Telefone);
+                await _context.Cliente.Include(c => c.EnderecoEntrega.Cidade.Estado.Pais).FirstOrDefaultAsync(c => c.Telefone == cliente.Telefone);
+                await _context.Cliente.Include(c => c.CartaoCredito).FirstOrDefaultAsync(c => c.Telefone == cliente.Telefone);
+                await _context.Cliente.Include(c => c.Genero).FirstOrDefaultAsync(c => c.Telefone == cliente.Telefone);
+                return _context.Cliente;
+            }
+     
             await _context.Cliente.Include(c => c.EnderecoCobranca.Cidade.Estado.Pais).ToListAsync();
             await _context.Cliente.Include(c => c.EnderecoEntrega.Cidade.Estado.Pais).ToListAsync();
             await _context.Cliente.Include(c => c.CartaoCredito).ToListAsync();
@@ -77,33 +105,20 @@ namespace EcommerceLojaRoupa.Dao
 
         public async Task<EntidadeDominio> ConsultarCliente(string nome, string cpf, string telefone)
         {
-            _ = new EntidadeDominio();
-            EntidadeDominio entidadeDominio;
-            if (nome == null || nome == "")
+            if(nome != null)
             {
-                if (cpf == null || cpf == "")
-                {
-                    if (telefone == null || telefone == "")
-                    {
-                        return null;
-                    }
-                    else
-                    {
-                        entidadeDominio = _context.Cliente.Find(telefone);
-                    }
-                }
-                else
-                {
-                    entidadeDominio = _context.Cliente.Find(cpf);
-                }
+                var entidade = await _context.Cliente.FirstOrDefaultAsync(i => i.Nome == nome);
+                return entidade;
             }
-            else
+            else if(cpf != null)
             {
-                entidadeDominio = _context.Cliente.Find(nome);
-
+                var entidade = await _context.Cliente.FirstOrDefaultAsync(i => i.Cpf == cpf);
+                return entidade;
             }
 
-            return  entidadeDominio;
+            var entidadeDominio = await _context.Cliente.FirstOrDefaultAsync(i => i.Telefone == telefone);
+            return entidadeDominio;
+
         }
     }
 }

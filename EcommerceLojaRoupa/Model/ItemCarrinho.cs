@@ -9,9 +9,9 @@ namespace EcommerceLojaRoupa.Model
     public class ItemCarrinho : EntidadeDominio
     {
         public int Quantidade { get; set; }
-        public DateTime Data { get; set; }
         public int RoupaId { get; set; }
         [ForeignKey("RoupaId")]
         public Roupa Roupa { get; set; }
+ 
     }
 }

@@ -22,21 +22,17 @@ namespace EcommerceLojaRoupa.Controllers
         }
 
 
-        [HttpGet("{nome:string, cpf:string, telefone:string }", Name = "GetCliente")]
+        [HttpGet()]
         public async Task<ActionResult<Cliente>> GetCliente(string nome, string cpf, string telefone)
         {
+            Cliente cliente = new Cliente();
+            cliente.Nome = nome;
+            cliente.Cpf = cpf;
+            cliente.Telefone = telefone;
             try
             {
-                var listaRetorno = (IEnumerable<EntidadeDominio>)
-                await _commandConsultar.ExecutarCliente(nome, cpf, telefone);
-                if (listaRetorno.Count() <= 0)
-                {
-                    return NotFound($"Não existe cliente");
-                }
-                else
-                {
-                    return Ok(listaRetorno);
-                }
+                var clientes = await _commandConsultar.Executar(cliente);
+                return Ok(clientes);
             }
             catch (Exception ex)
             {

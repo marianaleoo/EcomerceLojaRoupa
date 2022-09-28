@@ -50,6 +50,7 @@ namespace EcommerceLojaRoupa.Controller
             cliente.Id = id;
             try
             {
+
                 var listaRetorno = (IEnumerable<EntidadeDominio>)
                 await _commandConsultar.Executar(cliente);
                 if (listaRetorno.Count() <= 0)

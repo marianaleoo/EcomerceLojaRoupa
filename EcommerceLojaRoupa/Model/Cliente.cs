@@ -29,5 +29,9 @@ namespace EcommerceLojaRoupa.Model
         [ForeignKey("GeneroId")]
         public Genero Genero { get; set; }
 
+        [ForeignKey("UsuarioId")]
+        public int UsuarioId { get; set; }
+        public Usuario Usuario  { get; set; }
+
     }
 }

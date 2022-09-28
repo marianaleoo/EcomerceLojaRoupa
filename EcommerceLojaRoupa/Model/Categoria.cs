@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace EcommerceLojaRoupa.Model
 {
-    public class Categoria : EntidadeDominio
+    public class Categoria :EntidadeDominio
     {
-
+        public string Descricao { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Threading.Tasks ;
 
 namespace EcommerceLojaRoupa.Model
 {
@@ -15,7 +15,6 @@ namespace EcommerceLojaRoupa.Model
         public DbSet<Roupa> Roupa { get; set; }
         public DbSet<Estoque> Estoque { get; set; }
         public DbSet<ItemCarrinho> ItemCarrinho { get; set; }
-        public DbSet<Precificacao> Precificacao { get; set; }
         public DbSet<DetalheAtivacao> DetalheAtivacao { get; set; }
         public DbSet<Categoria> Categoria { get; set; }
         public DbSet<CartaoCredito> CartaoCredito { get; set; }

@@ -29,8 +29,8 @@ namespace EcommerceLojaRoupa.Dao
                 itemCarrinhos.Add(await ConsultarId(itemCarrinho.Id));
                 return itemCarrinhos;
             }
-            var teste = await _context.ItemCarrinho.Include(c => c.Roupa).ToListAsync();
-            return teste;
+            return  _context.ItemCarrinho;
+
         }
 
         public async Task Salvar(EntidadeDominio entidadeDominio)
