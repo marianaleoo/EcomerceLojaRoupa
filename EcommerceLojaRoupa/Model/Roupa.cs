@@ -15,7 +15,7 @@ namespace EcommerceLojaRoupa.Model
         public bool Ativo { get; set; }
         public string Tamanho { get; set; }   
         public double Preco { get; set; }
-        public string URL { get; set; }
+        public string ImgLink { get; set; }
 
         //public int CategoriaId { get; set; }
         //[ForeignKey("CategoriaId")]
