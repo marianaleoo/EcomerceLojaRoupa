@@ -70,5 +70,10 @@ namespace EcommerceLojaCartaoCredito.Dao
         {
             throw new System.NotImplementedException();
         }
+
+        public Task<EntidadeDominio> ConsultarCarrinhoCliente(int clienteId)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -125,5 +125,10 @@ namespace EcommerceLojaRoupa.Dao
         {
             throw new NotImplementedException();
         }
+
+        public Task<EntidadeDominio> ConsultarCarrinhoCliente(int clienteId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

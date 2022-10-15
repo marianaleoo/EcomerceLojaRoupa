@@ -49,42 +49,16 @@ namespace EcommerceLojaRoupa.Controllers
             carrinhoCompra.Id = id;
             try
             {
-                var listaRetorno = (IEnumerable<EntidadeDominio>)
+                //var listaRetorno = (IEnumerable<EntidadeDominio>)
                 await _commandConsultar.Executar(carrinhoCompra);
-                if (listaRetorno.Count() <= 0)
-                {
-                    return NotFound($"Não existe carrinhoCompra com id={id}");
-                }
-                else
-                {
-                    return Ok(listaRetorno);
-                }
-            }
-            catch (Exception ex)
-            {
-
-                return BadRequest(ex.Message);
-            }
-        }
-
-
-        [HttpGet("{id:int}", Name = "GetCarrinhoCompraId")]
-        public async Task<ActionResult<CarrinhoCompra>> GetCarrinhoCompraId(int id, int clienteId)
-        {
-            CarrinhoCompra carrinhoCompra = new CarrinhoCompra();
-            carrinhoCompra.Id = id;
-            try
-            {
-                var listaRetorno = (IEnumerable<EntidadeDominio>)
-                await _commandConsultar.Executar(carrinhoCompra);
-                if (listaRetorno.Count() <= 0)
-                {
-                    return NotFound($"Não existe carrinhoCompra com id={id}");
-                }
-                else
-                {
-                    return Ok(listaRetorno);
-                }
+                //if (listaRetorno.Count() <= 0)
+                //{
+                //    return NotFound($"Não existe carrinhoCompra com esse id={id}");
+                //}
+                //else
+                //{
+                    return Ok(carrinhoCompra);
+                //}
             }
             catch (Exception ex)
             {

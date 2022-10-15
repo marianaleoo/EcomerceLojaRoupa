@@ -36,7 +36,9 @@ namespace EcommerceLojaRoupa.Facade
             daos["Bandeira"] = new BandeiraDao(dbContext);
             daos["Genero"] = new GeneroDao(dbContext);
             daos["TipoTelefone"] = new TipoTelefoneDao(dbContext);
-            
+            daos["CarrinhoCompra"] = new CarrinhoCompraDao(dbContext);
+            daos["Usuario"] = new UsuarioDao(dbContext);
+
         }
 
         private void DefinirNegocio(AppDbContext dbContext)
