@@ -33,5 +33,9 @@ namespace EcommerceLojaRoupa.Model
         public int UsuarioId { get; set; }
         public Usuario Usuario  { get; set; }
 
+        [ForeignKey("CarrinhoId")]
+        public int CarrinhoId { get; set; }
+        public CarrinhoCompra Carrinho{ get; set; }
+
     }
 }

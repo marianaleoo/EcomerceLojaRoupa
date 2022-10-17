@@ -31,6 +31,12 @@ namespace EcommerceLojaRoupa.Dao
                 clientes.Add(await ConsultarId(cliente.Id));
                 return clientes;
             }
+            if(cliente.Usuario.Email != null)
+            {
+                List<EntidadeDominio> clientes = new List<EntidadeDominio>();
+                clientes.Add(await ConsultarClientePorUsuario(cliente.Usuario.Email, cliente.Usuario.Senha));
+                return clientes;
+            }
             if (cliente.Nome != null)
             {
                 await _context.Cliente.FirstOrDefaultAsync(c => c.Nome == cliente.Nome);
@@ -121,9 +127,10 @@ namespace EcommerceLojaRoupa.Dao
 
         }
 
-        public Task<EntidadeDominio> ConsultarCarrinhoCliente(int id, int clienteId)
+        public async  Task<EntidadeDominio> ConsultarClientePorUsuario(string email, string senha)
         {
-            throw new NotImplementedException();
+            var entidadeDominio = await _context.Cliente.FirstOrDefaultAsync(i => i.Usuario.Email == email && i.Usuario.Senha == senha);
+            return entidadeDominio;
         }
 
         public Task<EntidadeDominio> ConsultarCarrinhoCliente(int clienteId)

@@ -23,8 +23,7 @@ namespace EcommerceLojaRoupa.Dao
         public async Task<IEnumerable<EntidadeDominio>> Consultar(EntidadeDominio entidadeDominio)
         {
             CarrinhoCompra carrinhoCompra = (CarrinhoCompra)entidadeDominio;
-            carrinhoCompra.ClienteId = 5;
-            if (carrinhoCompra.Id != 0 && carrinhoCompra.ClienteId == 5)
+            if (carrinhoCompra.Id != 0 )
             {
                 List<EntidadeDominio> carrinhoCompras = new List<EntidadeDominio>();
                 carrinhoCompras.Add(await ConsultarId(carrinhoCompra.Id));

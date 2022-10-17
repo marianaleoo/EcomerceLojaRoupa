@@ -43,6 +43,26 @@ namespace EcommerceLojaRoupa.Controller
             }
         }
 
+        [HttpGet("{email}/{senha}")]
+        public async Task<ActionResult<IAsyncEnumerable<Cliente>>> Consultar(string email, string senha)
+        {
+            Cliente cliente = new Cliente();
+            cliente.Usuario = new Usuario();
+            cliente.Usuario.Email = email;
+            cliente.Usuario.Senha = senha;
+     
+            try
+            {
+                var clientes = await _commandConsultar.Executar(cliente);
+                return Ok(clientes);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet("{id:int}", Name = "GetClienteId")]
         public async Task<ActionResult<Cliente>> GetClienteId(int id)
         {

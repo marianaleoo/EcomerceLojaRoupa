@@ -17,6 +17,10 @@ namespace EcommerceLojaRoupa.Model
         [ForeignKey("CarrinhoCompraId")]
         public int CarrinhoCompraId { get; set; }
         public CarrinhoCompra CarrinhoCompra { get; set; }
+        [NotMapped]
+        public int ClienteId { get; set; }
+
+
 
 
 

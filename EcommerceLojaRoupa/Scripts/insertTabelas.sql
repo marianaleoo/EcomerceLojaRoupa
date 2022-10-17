@@ -16,7 +16,7 @@ insert into Genero(Descricao, DataCadastro) values('Outro', SYSDATETIME())
 select * from CarrinhoCompra
 select * from ItemCarrinho
 
-insert into CarrinhoCompra(ClienteId, DataCadastro) values(5, SYSDATETIME()) 
+insert into CarrinhoCompra(DataCadastro) values(SYSDATETIME()) 
 
 select * from Bandeira
 select * from Pais
@@ -30,8 +30,9 @@ delete  from Cliente where Id= 6
 delete  from CarrinhoCompra where Id= 1
 delete  from Usuario where Id= 1
 insert into Usuario(Email, Senha, DataCadastro) values('mariana.leo@hotmail.com', '123', SYSDATETIME())
-insert into Cliente(Ativo, Codigo, Nome, DataNascimento, Cpf, DDD, Telefone, TipoTelefoneId, Email, Senha, ConfirmarSenha, GeneroId, UsuarioId, DataCadastro)
-values(1, 'M', 'Mariana de Oliveira Léo', '1997-12-05', '45745559802', '11', '998385529', 1, 'mariana.leo@hotmail.com', '123', '123', 1, 2, SYSDATETIME() )
-select * from Cliente
+insert into Cliente(Ativo, Codigo, Nome, DataNascimento, Cpf, DDD, Telefone, TipoTelefoneId, Email, Senha, ConfirmarSenha, GeneroId, UsuarioId, CarrinhoId, DataCadastro)
+values(1, 'M', 'Mariana de Oliveira Léo', '1997-12-05', '45745559802', '11', '998385529', 1, 'mariana.leo@hotmail.com', '123', '123', 1, 1, 1, SYSDATETIME() )
+select * from Usuario where Id= 1
+
 
 insert into Roupa(Nome, Codigo, Tecido, Descricao, Ativo, Tamanho, Preco, ImgLink, DataCadastro) values ('Calça Sarja', 'C', 'algodão', 'Calça verde', '1', 'P', 129.90, 'https://images.tcdn.com.br/img/img_prod/889236/calca_sarja_wide_cali_129_1_628ae91f6d42c7892fc60d525ead75ef.png', SYSDATETIME())

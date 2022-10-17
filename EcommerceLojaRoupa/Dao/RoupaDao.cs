@@ -25,8 +25,8 @@ namespace EcommerceLojaRoupa.Dao
             Roupa roupa = (Roupa)entidadeDominio;
             if (roupa.Id != 0)
             {
-                List<EntidadeDominio> roupas = new List<EntidadeDominio>();
-                roupas.Add(await ConsultarId(roupa.Id));
+                List<Roupa> roupas = new List<Roupa>();
+                roupas.Add(await _context.Roupa.FirstOrDefaultAsync(i => i.Id == roupa.Id));
                 return roupas;
             }
             return await _context.Roupa.ToListAsync();
@@ -58,8 +58,7 @@ namespace EcommerceLojaRoupa.Dao
 
         public async Task<EntidadeDominio> ConsultarId(int id)
         {
-            var entidadeDominio = await _context.Roupa.FindAsync(id);
-            return entidadeDominio;
+            throw new NotImplementedException();
         }
 
         public Task<EntidadeDominio> ConsultarCliente(string nome, string cpf, string telefone)

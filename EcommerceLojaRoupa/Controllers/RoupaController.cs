@@ -43,27 +43,19 @@ namespace EcommerceLojaRoupa.Controllers
         }
 
         [HttpGet("{id:int}", Name = "GetRoupaId")]
-        public async Task<ActionResult<Roupa>> GetRoupaId(int id)
+        public async Task<ActionResult<IAsyncEnumerable<Roupa>>> GetRoupaId(int id)
         {
             Roupa roupa = new Roupa();
             roupa.Id = id;
             try
             {
-                var listaRetorno = (IEnumerable<EntidadeDominio>)
-                await _commandConsultar.Executar(roupa);
-                if (listaRetorno.Count() <= 0)
-                {
-                    return NotFound($"Não existe roupa com id={id}");
-                }
-                else
-                {
-                    return Ok(listaRetorno);
-                }
+                var roupas = await _commandConsultar.Executar(roupa);
+                return Ok(roupas);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
-                return BadRequest(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao obter roupas");
             }
         }
 

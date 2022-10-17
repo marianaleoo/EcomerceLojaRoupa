@@ -44,9 +44,6 @@ namespace EcommerceLojaRoupa.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ClienteId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime2");
 
@@ -141,6 +138,9 @@ namespace EcommerceLojaRoupa.Migrations
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
 
+                    b.Property<int>("CarrinhoId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Codigo")
                         .HasColumnType("nvarchar(max)");
 
@@ -181,6 +181,8 @@ namespace EcommerceLojaRoupa.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CarrinhoId");
 
                     b.HasIndex("GeneroId");
 
@@ -585,6 +587,12 @@ namespace EcommerceLojaRoupa.Migrations
 
             modelBuilder.Entity("EcommerceLojaRoupa.Model.Cliente", b =>
                 {
+                    b.HasOne("EcommerceLojaRoupa.Model.CarrinhoCompra", "Carrinho")
+                        .WithMany()
+                        .HasForeignKey("CarrinhoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("EcommerceLojaRoupa.Model.Genero", "Genero")
                         .WithMany()
                         .HasForeignKey("GeneroId")
@@ -602,6 +610,8 @@ namespace EcommerceLojaRoupa.Migrations
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Carrinho");
 
                     b.Navigation("Genero");
 

@@ -9,6 +9,5 @@ namespace EcommerceLojaRoupa.Model
     {
         List<ItemCarrinho> ItemCarrinhos;
 
-        public int ClienteId { get; set; }
     }
 }

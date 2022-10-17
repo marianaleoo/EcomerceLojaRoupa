@@ -36,6 +36,8 @@ namespace EcommerceLojaRoupa.Dao
         public async Task Salvar(EntidadeDominio entidadeDominio)
         {
             ItemCarrinho itemCarrinho = (ItemCarrinho)entidadeDominio;
+            var cliente = _context.Cliente.FirstOrDefault(i => i.Id == itemCarrinho.ClienteId);
+            itemCarrinho.CarrinhoCompraId = cliente.CarrinhoId;
             _context.ItemCarrinho.Add(itemCarrinho);
             await _context.SaveChangesAsync();
         }
