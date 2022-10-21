@@ -7,7 +7,7 @@ namespace EcommerceLojaRoupa.Model
 {
     public class CarrinhoCompra : EntidadeDominio
     {
-        List<ItemCarrinho> ItemCarrinhos;
+        List<ItemCarrinho> ItemCarrinhos { get; set; }
 
     }
 }

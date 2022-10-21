@@ -25,6 +25,12 @@ namespace EcommerceLojaRoupa.Dao
         {
             
             Cliente cliente = (Cliente)entidadeDominio;
+            if(cliente.CarrinhoId !=0 && cliente.Id != 0)
+            {
+                List<ItemCarrinho> itensCarrinhos = new List<ItemCarrinho>();
+                itensCarrinhos.Add(await _context.ItemCarrinho.FirstOrDefaultAsync(i => i.CarrinhoCompraId == cliente.CarrinhoId));
+                return itensCarrinhos;
+            }
             if(cliente.Id != 0)
             {
                 List<EntidadeDominio> clientes = new List<EntidadeDominio>();
@@ -133,9 +139,11 @@ namespace EcommerceLojaRoupa.Dao
             return entidadeDominio;
         }
 
-        public Task<EntidadeDominio> ConsultarCarrinhoCliente(int clienteId)
+        public async Task<EntidadeDominio> ConsultarCarrinhoCliente(int carrinhoCompraId)
         {
-            throw new NotImplementedException();
+            var entidadeDominio = await _context.ItemCarrinho.FirstOrDefaultAsync(i => i.CarrinhoCompraId == carrinhoCompraId);
+            return entidadeDominio;
         }
     }
+ 
 }

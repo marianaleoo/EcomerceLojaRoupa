@@ -44,7 +44,7 @@ namespace EcommerceLojaRoupa.Controller
         }
 
         [HttpGet("{email}/{senha}")]
-        public async Task<ActionResult<IAsyncEnumerable<Cliente>>> Consultar(string email, string senha)
+        public async Task<ActionResult<IAsyncEnumerable<Cliente>>> ConsultarUsuario(string email, string senha)
         {
             Cliente cliente = new Cliente();
             cliente.Usuario = new Usuario();
@@ -55,6 +55,45 @@ namespace EcommerceLojaRoupa.Controller
             {
                 var clientes = await _commandConsultar.Executar(cliente);
                 return Ok(clientes);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("{carrinhoId:int}/{clienteId:int}")]
+        public async Task<ActionResult<Cliente>> GetCarrinhoId(int carrinhoId, int clienteId)
+        {
+            Cliente cliente = new Cliente();
+            cliente.CarrinhoId = carrinhoId;
+            cliente.Id = clienteId;
+
+            //try
+            //{
+            //    var itensCarrinho = await _commandConsultar.Executar(cliente);
+            //    return Ok(itensCarrinho);
+            //}
+            //catch (Exception)
+            //{
+
+            //    return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao obter clientes");
+            //}
+
+            try
+            {
+
+                var listaRetorno = (IEnumerable<EntidadeDominio>)
+                await _commandConsultar.Executar(cliente);
+                if (listaRetorno.Count() <= 0)
+                {
+                    return NotFound($"Não existe cliente com Carrinhoid={carrinhoId}");
+                }
+                else
+                {
+                    return Ok(listaRetorno);
+                }
             }
             catch (Exception ex)
             {

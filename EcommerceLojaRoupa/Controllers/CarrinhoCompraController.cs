@@ -43,21 +43,21 @@ namespace EcommerceLojaRoupa.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<CarrinhoCompra>> GetCarrinhoClienteId(int id)
+        public async Task<ActionResult<CarrinhoCompra>> GetItemCarrinhoId(int id)
         {
             CarrinhoCompra carrinhoCompra = new CarrinhoCompra();
             carrinhoCompra.Id = id;
             try
             {
                 //var listaRetorno = (IEnumerable<EntidadeDominio>)
-                await _commandConsultar.Executar(carrinhoCompra);
+                 await _commandConsultar.Executar(carrinhoCompra);
                 //if (listaRetorno.Count() <= 0)
                 //{
                 //    return NotFound($"Não existe carrinhoCompra com esse id={id}");
                 //}
                 //else
                 //{
-                    return Ok(carrinhoCompra);
+                return Ok(carrinhoCompra);
                 //}
             }
             catch (Exception ex)
@@ -66,6 +66,32 @@ namespace EcommerceLojaRoupa.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
+        //[HttpGet("{id:int}")]
+        //public async Task<ActionResult<CarrinhoCompra>> GetCarrinhoClienteId(int id)
+        //{
+        //    CarrinhoCompra carrinhoCompra = new CarrinhoCompra();
+        //    carrinhoCompra.Id = id;
+        //    try
+        //    {
+        //        //var listaRetorno = (IEnumerable<EntidadeDominio>)
+        //        await _commandConsultar.Executar(carrinhoCompra);
+        //        //if (listaRetorno.Count() <= 0)
+        //        //{
+        //        //    return NotFound($"Não existe carrinhoCompra com esse id={id}");
+        //        //}
+        //        //else
+        //        //{
+        //            return Ok(carrinhoCompra);
+        //        //}
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
 
         [HttpPost]
         public async Task<ActionResult> Salvar(CarrinhoCompra carrinhoCompra)

@@ -25,10 +25,14 @@ namespace EcommerceLojaRoupa.Dao
             CarrinhoCompra carrinhoCompra = (CarrinhoCompra)entidadeDominio;
             if (carrinhoCompra.Id != 0 )
             {
-                List<EntidadeDominio> carrinhoCompras = new List<EntidadeDominio>();
-                carrinhoCompras.Add(await ConsultarId(carrinhoCompra.Id));
-                return carrinhoCompras;
+                List<ItemCarrinho> itemCarrinhos = new List<ItemCarrinho>();
+                itemCarrinhos.Add(await _context.ItemCarrinho.FirstOrDefaultAsync(i => i.CarrinhoCompraId == carrinhoCompra.Id));
+                return itemCarrinhos;
+                //List<EntidadeDominio> carrinhoCompras = new List<EntidadeDominio>();
+                //carrinhoCompras.Add(await ConsultarId(carrinhoCompra.Id));
+                //return carrinhoCompras;
             }
+            
             return await _context.CarrinhoCompra.ToListAsync();
         }
 
