@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EcommerceLojaRoupa.Migrations
 {
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -172,7 +172,6 @@ namespace EcommerceLojaRoupa.Migrations
                     Tecido = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Ativo = table.Column<bool>(type: "bit", nullable: false),
-                    Tamanho = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Preco = table.Column<double>(type: "float", nullable: false),
                     ImgLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -239,6 +238,7 @@ namespace EcommerceLojaRoupa.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Quantidade = table.Column<int>(type: "int", nullable: false),
+                    Tamanho = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RoupaId = table.Column<int>(type: "int", nullable: false),
                     CarrinhoCompraId = table.Column<int>(type: "int", nullable: false),
                     DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)

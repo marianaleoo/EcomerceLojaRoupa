@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcommerceLojaRoupa.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221016184635_init")]
-    partial class init
+    [Migration("20221030010219_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -436,6 +436,9 @@ namespace EcommerceLojaRoupa.Migrations
                     b.Property<int>("RoupaId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Tamanho")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CarrinhoCompraId");
@@ -508,9 +511,6 @@ namespace EcommerceLojaRoupa.Migrations
 
                     b.Property<double>("Preco")
                         .HasColumnType("float");
-
-                    b.Property<string>("Tamanho")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tecido")
                         .HasColumnType("nvarchar(max)");
@@ -669,8 +669,8 @@ namespace EcommerceLojaRoupa.Migrations
 
             modelBuilder.Entity("EcommerceLojaRoupa.Model.ItemCarrinho", b =>
                 {
-                    b.HasOne("EcommerceLojaRoupa.Model.CarrinhoCompra", "CarrinhoCompra")
-                        .WithMany()
+                    b.HasOne("EcommerceLojaRoupa.Model.CarrinhoCompra", null)
+                        .WithMany("ItensCarrinho")
                         .HasForeignKey("CarrinhoCompraId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -681,9 +681,12 @@ namespace EcommerceLojaRoupa.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CarrinhoCompra");
-
                     b.Navigation("Roupa");
+                });
+
+            modelBuilder.Entity("EcommerceLojaRoupa.Model.CarrinhoCompra", b =>
+                {
+                    b.Navigation("ItensCarrinho");
                 });
 
             modelBuilder.Entity("EcommerceLojaRoupa.Model.Cliente", b =>
