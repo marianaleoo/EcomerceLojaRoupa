@@ -125,6 +125,7 @@ D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\bin\Debug\net5.0\EcommerceLoja
 D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\bin\Debug\net5.0\EcommerceLojaRoupa.runtimeconfig.json
 D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\bin\Debug\net5.0\EcommerceLojaRoupa.runtimeconfig.dev.json
 D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\bin\Debug\net5.0\EcommerceLojaRoupa.dll
+D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\bin\Debug\net5.0\ref\EcommerceLojaRoupa.dll
 D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\bin\Debug\net5.0\EcommerceLojaRoupa.pdb
 D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\bin\Debug\net5.0\Humanizer.dll
 D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\bin\Debug\net5.0\Microsoft.Data.SqlClient.dll
@@ -162,6 +163,7 @@ D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\bin\Debug\net5.0\runtimes\win-
 D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
 D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\obj\Debug\net5.0\EcommerceLojaRoupa.csproj.AssemblyReference.cache
 D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\obj\Debug\net5.0\EcommerceLojaRoupa.GeneratedMSBuildEditorConfig.editorconfig
 D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\obj\Debug\net5.0\EcommerceLojaRoupa.AssemblyInfoInputs.cache
 D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\obj\Debug\net5.0\EcommerceLojaRoupa.AssemblyInfo.cs
@@ -169,6 +171,7 @@ D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\obj\Debug\net5.0\EcommerceLoja
 D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\obj\Debug\net5.0\EcommerceLojaRoupa.MvcApplicationPartsAssemblyInfo.cs
 D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\obj\Debug\net5.0\EcommerceLojaRoupa.MvcApplicationPartsAssemblyInfo.cache
 D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\obj\Debug\net5.0\staticwebassets\EcommerceLojaRoupa.StaticWebAssets.Manifest.cache
+D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\obj\Debug\net5.0\staticwebassets\EcommerceLojaRoupa.StaticWebAssets.xml
 D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\obj\Debug\net5.0\scopedcss\bundle\EcommerceLojaRoupa.styles.css
 D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\obj\Debug\net5.0\EcommerceLojaRoupa.RazorTargetAssemblyInfo.cache
 D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\obj\Debug\net5.0\EcommerceLojaRoupa.csproj.CopyComplete
@@ -176,5 +179,3 @@ D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\obj\Debug\net5.0\EcommerceLoja
 D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\obj\Debug\net5.0\ref\EcommerceLojaRoupa.dll
 D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\obj\Debug\net5.0\EcommerceLojaRoupa.pdb
 D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\obj\Debug\net5.0\EcommerceLojaRoupa.genruntimeconfig.cache
-D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\obj\Debug\net5.0\EcommerceLojaRoupa.csproj.AssemblyReference.cache
-D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\obj\Debug\net5.0\refint\EcommerceLojaRoupa.dll

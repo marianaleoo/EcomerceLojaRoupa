@@ -10,6 +10,7 @@ namespace EcommerceLojaRoupa.Dao
     {
         Task<IEnumerable<EntidadeDominio>> Consultar(EntidadeDominio entidadeDominio);
         Task <EntidadeDominio> ConsultarId(int id);
+        Task<IEnumerable<EntidadeDominio>> ConsultarPorId(int id);
         Task<EntidadeDominio> ConsultarCarrinhoCliente(int clienteId);
         Task Salvar(EntidadeDominio entidadeDominio);
         Task Alterar(EntidadeDominio entidadeDominio);

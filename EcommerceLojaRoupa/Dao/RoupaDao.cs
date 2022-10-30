@@ -75,5 +75,10 @@ namespace EcommerceLojaRoupa.Dao
         {
             throw new NotImplementedException();
         }
+
+        public Task<IEnumerable<EntidadeDominio>> ConsultarPorId(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

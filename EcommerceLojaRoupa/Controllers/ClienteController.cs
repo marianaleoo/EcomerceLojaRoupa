@@ -63,63 +63,19 @@ namespace EcommerceLojaRoupa.Controller
             }
         }
 
-        [HttpGet("{carrinhoId:int}/{clienteId:int}")]
-        public async Task<ActionResult<Cliente>> GetCarrinhoId(int carrinhoId, int clienteId)
-        {
-            Cliente cliente = new Cliente();
-            cliente.CarrinhoId = carrinhoId;
-            cliente.Id = clienteId;
-
-            //try
-            //{
-            //    var itensCarrinho = await _commandConsultar.Executar(cliente);
-            //    return Ok(itensCarrinho);
-            //}
-            //catch (Exception)
-            //{
-
-            //    return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao obter clientes");
-            //}
-
-            try
-            {
-
-                var listaRetorno = (IEnumerable<EntidadeDominio>)
-                await _commandConsultar.Executar(cliente);
-                if (listaRetorno.Count() <= 0)
-                {
-                    return NotFound($"Não existe cliente com Carrinhoid={carrinhoId}");
-                }
-                else
-                {
-                    return Ok(listaRetorno);
-                }
-            }
-            catch (Exception ex)
-            {
-
-                return BadRequest(ex.Message);
-            }
-        }
+  
 
         [HttpGet("{id:int}", Name = "GetClienteId")]
-        public async Task<ActionResult<Cliente>> GetClienteId(int id)
+        public async Task<ActionResult<IAsyncEnumerable<Cliente>>> GetClienteId(int id)
         {
             Cliente cliente = new Cliente();
             cliente.Id = id;
             try
             {
 
-                var listaRetorno = (IEnumerable<EntidadeDominio>)
-                await _commandConsultar.Executar(cliente);
-                if (listaRetorno.Count() <= 0)
-                {
-                    return NotFound($"Não existe cliente com id={id}");
-                }
-                else
-                {
+                var listaRetorno = await _commandConsultar.Executar(cliente);
+         
                     return Ok(listaRetorno);
-                }
             }
             catch (Exception ex)
             {

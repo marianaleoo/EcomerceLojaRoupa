@@ -25,16 +25,10 @@ namespace EcommerceLojaRoupa.Dao
         {
             
             Cliente cliente = (Cliente)entidadeDominio;
-            if(cliente.CarrinhoId !=0 && cliente.Id != 0)
-            {
-                List<ItemCarrinho> itensCarrinhos = new List<ItemCarrinho>();
-                itensCarrinhos.Add(await _context.ItemCarrinho.FirstOrDefaultAsync(i => i.CarrinhoCompraId == cliente.CarrinhoId));
-                return itensCarrinhos;
-            }
             if(cliente.Id != 0)
             {
-                List<EntidadeDominio> clientes = new List<EntidadeDominio>();
-                clientes.Add(await ConsultarId(cliente.Id));
+                List<Cliente> clientes = new List<Cliente>();
+                clientes.Add(await _context.Cliente.Include("Carrinho.ItensCarrinho.Roupa").FirstOrDefaultAsync(c => c.Id == cliente.Id));
                 return clientes;
             }
             if(cliente.Usuario.Email != null)
@@ -115,6 +109,13 @@ namespace EcommerceLojaRoupa.Dao
             return entidadeDominio;
         }
 
+        public async Task<IEnumerable<EntidadeDominio>> ConsultarPorId(int id)
+        {
+            List<Cliente> clientes = new List<Cliente>(); 
+            clientes.Add(await _context.Cliente.Include(c => c.Carrinho.ItensCarrinho).FirstOrDefaultAsync(c => c.Id == id));
+            return clientes;
+        }
+
         public async Task<EntidadeDominio> ConsultarCliente(string nome, string cpf, string telefone)
         {
             if(nome != null)
@@ -144,6 +145,8 @@ namespace EcommerceLojaRoupa.Dao
             var entidadeDominio = await _context.ItemCarrinho.FirstOrDefaultAsync(i => i.CarrinhoCompraId == carrinhoCompraId);
             return entidadeDominio;
         }
+
+
     }
  
 }

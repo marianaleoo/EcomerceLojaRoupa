@@ -25,11 +25,23 @@ namespace EcommerceLojaRoupa.Dao
             ItemCarrinho itemCarrinho = (ItemCarrinho)entidadeDominio;
             if (itemCarrinho.Id != 0)
             {
-                List<EntidadeDominio> itemCarrinhos = new List<EntidadeDominio>();
-                itemCarrinhos.Add(await ConsultarId(itemCarrinho.Id));
+                List<ItemCarrinho> itemCarrinhos = new List<ItemCarrinho>();
+                itemCarrinhos.Add((ItemCarrinho)await ConsultarPorId(itemCarrinho.Id));
+                foreach (var item in itemCarrinhos)
+                {
+                    Roupa roupa = (Roupa)entidadeDominio;
+                    roupa.Id = 1;
+                    if (item.RoupaId == roupa.Id)
+                    {
+                        List<Roupa> roupas = new List<Roupa>();
+                        roupas.Add(await _context.Roupa.FirstOrDefaultAsync(i => i.Id == roupa.Id));
+                        return roupas;
+                    }
+
+                }
                 return itemCarrinhos;
             }
-            return  _context.ItemCarrinho;
+            return _context.ItemCarrinho;
 
         }
 
@@ -53,16 +65,36 @@ namespace EcommerceLojaRoupa.Dao
         {
             ItemCarrinho itemCarrinho = (ItemCarrinho)entidadeDominio;
 
-            var itemCarrinhoBanco = (ItemCarrinho)await ConsultarId(itemCarrinho.Id);
+            var itemCarrinhoBanco = (ItemCarrinho)await ConsultarPorId(itemCarrinho.Id);
             _context.ItemCarrinho.Remove(itemCarrinhoBanco);
             await _context.SaveChangesAsync();
 
         }
 
-        public async Task<EntidadeDominio> ConsultarId(int id)
+        public async Task<IEnumerable<EntidadeDominio>> ConsultarPorId(int id)
         {
-            var entidadeDominio = await _context.ItemCarrinho.FindAsync(id);
-            return entidadeDominio;
+            EntidadeDominio entidadeDominio = new EntidadeDominio();
+            ItemCarrinho itemCarrinho = (ItemCarrinho)entidadeDominio;
+            itemCarrinho.Id = id;
+            if (itemCarrinho.Id != 0)
+            {
+                List<ItemCarrinho> itemCarrinhos = new List<ItemCarrinho>();
+                itemCarrinhos.Add((ItemCarrinho)await _context.ItemCarrinho.FindAsync(itemCarrinho.Id));
+                foreach (var item in itemCarrinhos)
+                {
+                    Roupa roupa = (Roupa)entidadeDominio;
+                    roupa.Id = 1;
+                    if (item.RoupaId == roupa.Id)
+                    {
+                        List<Roupa> roupas = new List<Roupa>();
+                        roupas.Add(await _context.Roupa.FirstOrDefaultAsync(i => i.Id == roupa.Id));
+                        return roupas;
+                    }
+
+                }
+                //return itemCarrinhos;
+            }
+            return _context.ItemCarrinho;
         }
 
         public Task<EntidadeDominio> ConsultarCliente(string nome, string cpf, string telefone)
@@ -76,6 +108,11 @@ namespace EcommerceLojaRoupa.Dao
         }
 
         public Task<EntidadeDominio> ConsultarCarrinhoCliente(int clienteId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<EntidadeDominio> ConsultarId(int id)
         {
             throw new NotImplementedException();
         }

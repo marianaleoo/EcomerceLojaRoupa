@@ -76,5 +76,10 @@ namespace EcommerceLojaRoupa.Dao
 
             return entidadeDominioSenha;
         }
+
+        public Task<IEnumerable<EntidadeDominio>> ConsultarPorId(int id)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

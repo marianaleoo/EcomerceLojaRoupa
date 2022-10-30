@@ -49,7 +49,7 @@ namespace EcommerceLojaRoupa.Controllers
             itemCarrinho.Id = id;
             try
             {
-                var listaRetorno = (IEnumerable<EntidadeDominio>)
+                var listaRetorno = (IEnumerable<ItemCarrinho>)
                 await _commandConsultar.Executar(itemCarrinho);
                 if (listaRetorno.Count() <= 0)
                 {

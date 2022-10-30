@@ -12,16 +12,9 @@ namespace EcommerceLojaRoupa.Model
         public string Codigo { get; set; }
         public string Tecido { get; set; }
         public string Descricao { get; set; }
-        public bool Ativo { get; set; }
-        public string Tamanho { get; set; }   
+        public bool Ativo { get; set; } 
         public double Preco { get; set; }
         public string ImgLink { get; set; }
-
-        //public int CategoriaId { get; set; }
-        //[ForeignKey("CategoriaId")]
-        //public Categoria Categoria { get; set; }
-
-        List<ItemCarrinho> ItemCarrinhos;
     }
 
 }

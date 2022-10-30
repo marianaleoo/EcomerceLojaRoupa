@@ -10,13 +10,13 @@ namespace EcommerceLojaRoupa.Model
     public class ItemCarrinho : EntidadeDominio
     {
         public int Quantidade { get; set; }
-        //[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public string Tamanho { get; set; }
+
         [ForeignKey("RoupaId")]
         public int RoupaId { get; set; }
         public Roupa Roupa { get; set; }
         [ForeignKey("CarrinhoCompraId")]
         public int CarrinhoCompraId { get; set; }
-        public CarrinhoCompra CarrinhoCompra { get; set; }
         [NotMapped]
         public int ClienteId { get; set; }
 
