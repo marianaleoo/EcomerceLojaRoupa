@@ -9,6 +9,11 @@ insert into Genero(Descricao, DataCadastro) values('Feminino', SYSDATETIME())
 insert into Genero(Descricao, DataCadastro) values('Masculino', SYSDATETIME())
 insert into Genero(Descricao, DataCadastro) values('Outro', SYSDATETIME())
 
+select * from CartaoCredito
+
+insert into CartaoCredito(NumeroCartao, NomeCartao, CodigoSeguranca, BandeiraId, ClienteId, DataCadastro)
+values ('123456789101', 'Mariana Léo', '123', 1, 1, SYSDATETIME())
+
        
 
 

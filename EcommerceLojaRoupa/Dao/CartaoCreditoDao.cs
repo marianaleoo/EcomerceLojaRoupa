@@ -28,6 +28,12 @@ namespace EcommerceLojaCartaoCredito.Dao
                 CartoesCredito.Add(await ConsultarId(CartaoCredito.Id));
                 return CartoesCredito;
             }
+            if(CartaoCredito.ClienteId != 0)
+            {
+                List<CartaoCredito> cartoesCredito = new List<CartaoCredito>();
+                cartoesCredito.Add(await _context.CartaoCredito.FirstOrDefaultAsync(e => e.ClienteId == CartaoCredito.ClienteId));
+                return cartoesCredito;
+            }
             return await _context.CartaoCredito.ToListAsync();
         }
 

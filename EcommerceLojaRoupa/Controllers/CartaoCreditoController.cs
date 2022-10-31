@@ -43,23 +43,17 @@ namespace EcommerceLojaRoupa.Controllers
             }
         }
 
-        [HttpGet("{id:int}", Name = "GetCartaoCreditoId")]
-        public async Task<ActionResult<CartaoCredito>> GetCartaoCreditId(int id)
+        [HttpGet("{clienteId}")]
+        public async Task<ActionResult<IAsyncEnumerable<Cliente>>> GetCartaoClienteId(int clienteId)
         {
             CartaoCredito cartaoCredito = new CartaoCredito();
-            cartaoCredito.Id = id;
+            cartaoCredito.ClienteId = clienteId;
             try
             {
-                var listaRetorno = (IEnumerable<EntidadeDominio>)
-                await _commandConsultar.Executar(cartaoCredito);
-                if (listaRetorno.Count() <= 0)
-                {
-                    return NotFound($"Não existe cartão de crédito com id={id}");
-                }
-                else
-                {
-                    return Ok(listaRetorno);
-                }
+
+                var listaRetorno = await _commandConsultar.Executar(cartaoCredito);
+
+                return Ok(listaRetorno);
             }
             catch (Exception ex)
             {
