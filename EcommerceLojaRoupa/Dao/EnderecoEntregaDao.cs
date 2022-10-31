@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 namespace EcommerceLojaRoupa.Dao
 {
     public class EnderecoEntregaDao : IDao
+
     {
         private readonly AppDbContext _context;
 
@@ -26,6 +27,12 @@ namespace EcommerceLojaRoupa.Dao
                 List<EntidadeDominio> enderecosEntrega = new List<EntidadeDominio>();
                 enderecosEntrega.Add(await ConsultarId(enderecoEntrega.Id));
                 return enderecosEntrega;
+            }
+            if(enderecoEntrega.ClienteId != 0)
+            {
+                List<EnderecoEntrega> enderecoEntregas = new List<EnderecoEntrega>();
+                enderecoEntregas.Add(await _context.EnderecoEntrega.FirstOrDefaultAsync(e=> e.ClienteId == enderecoEntrega.ClienteId));
+                return enderecoEntregas;
             }
             return await _context.EnderecoEntrega.Include(c => c.Cidade.Estado.Pais).ToListAsync();
         }

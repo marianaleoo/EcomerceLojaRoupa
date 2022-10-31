@@ -30,7 +30,7 @@ namespace EcommerceLojaRoupa.Dao
                 foreach (var item in itemCarrinhos)
                 {
                     Roupa roupa = (Roupa)entidadeDominio;
-                    roupa.Id = 1;
+                     roupa.Id = 1;
                     if (item.RoupaId == roupa.Id)
                     {
                         List<Roupa> roupas = new List<Roupa>();
