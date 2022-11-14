@@ -30,7 +30,7 @@ namespace EcommerceLojaRoupa.Dao
                 foreach (var item in itemCarrinhos)
                 {
                     Roupa roupa = (Roupa)entidadeDominio;
-                     roupa.Id = 1;
+                    roupa.Id = 1;
                     if (item.RoupaId == roupa.Id)
                     {
                         List<Roupa> roupas = new List<Roupa>();
@@ -40,6 +40,13 @@ namespace EcommerceLojaRoupa.Dao
 
                 }
                 return itemCarrinhos;
+            }
+            if(itemCarrinho.RoupaId != 0)
+            {
+                 List<ItemCarrinho> itemCarrinhos = new List<ItemCarrinho>();
+                itemCarrinhos.Add(await _context.ItemCarrinho.FirstOrDefaultAsync(i => i.RoupaId == itemCarrinho.RoupaId));
+                return itemCarrinhos;
+
             }
             return _context.ItemCarrinho;
 
@@ -57,8 +64,26 @@ namespace EcommerceLojaRoupa.Dao
         public async Task Alterar(EntidadeDominio entidadeDominio)
         {
             ItemCarrinho itemCarrinho = (ItemCarrinho)entidadeDominio;
+            if(itemCarrinho.Tamanho != null && itemCarrinho.ClienteId == 1)
+            {
+
+                var idItemCarrinho = _context.ItemCarrinho.FirstOrDefault(i => i.RoupaId == 1);
+                idItemCarrinho.Tamanho = itemCarrinho.Tamanho;
+                idItemCarrinho.RoupaId = 1;
+                _context.Entry(idItemCarrinho).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
+            if(itemCarrinho.Quantidade != 0 && itemCarrinho.ClienteId == 1)
+            {
+                var idItemCarrinho = _context.ItemCarrinho.FirstOrDefault(i => i.RoupaId == 1);
+                idItemCarrinho.Quantidade = itemCarrinho.Quantidade;
+                idItemCarrinho.RoupaId = 1;
+                _context.Entry(idItemCarrinho).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
             _context.Entry(itemCarrinho).State = EntityState.Modified;
             await _context.SaveChangesAsync();
+
         }
 
         public async Task Excluir(EntidadeDominio entidadeDominio)

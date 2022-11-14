@@ -42,6 +42,21 @@ namespace EcommerceLojaRoupa.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<ActionResult> Salvar(EnderecoEntrega enderecoEntrega)
+        {
+            try
+            {
+                await _commandSalvar.Executar(enderecoEntrega);
+                return Ok(enderecoEntrega);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet("{clienteId}")]
         public async Task<ActionResult<IAsyncEnumerable<Cliente>>> GetEnderecoClienteId(int clienteId)
         {

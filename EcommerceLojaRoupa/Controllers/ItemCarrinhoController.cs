@@ -83,6 +83,46 @@ namespace EcommerceLojaRoupa.Controllers
             }
         }
 
+        [HttpPut("{tamanho}/{clienteId}")]
+        public async Task<ActionResult> AlterarTamanho(string tamanho, int clienteId)
+        {
+
+            ItemCarrinho itemCarrinho = new();
+            itemCarrinho.Tamanho = tamanho;
+            itemCarrinho.ClienteId = clienteId;
+
+            try
+            {
+                await _commandAlterar.Executar(itemCarrinho);
+                return Ok(itemCarrinho);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("{quantidade:int}/{clienteId:int}")]
+        public async Task<ActionResult> AlterarQuantidade(int quantidade, int clienteId)
+        {
+
+            ItemCarrinho itemCarrinho = new();
+            itemCarrinho.Quantidade = quantidade;
+            itemCarrinho.ClienteId = clienteId;
+
+            try
+            {
+                await _commandAlterar.Executar(itemCarrinho);
+                return Ok(itemCarrinho);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPut("{id:int}")]
         public async Task<ActionResult> Alterar(int id, [FromBody] ItemCarrinho itemCarrinho)
         {
