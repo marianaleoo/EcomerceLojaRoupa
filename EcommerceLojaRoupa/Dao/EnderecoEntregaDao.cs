@@ -46,17 +46,8 @@ namespace EcommerceLojaRoupa.Dao
         public async Task Salvar(EntidadeDominio entidadeDominio)
         {
             EnderecoEntrega enderecoEntrega = (EnderecoEntrega)entidadeDominio;
-            if(enderecoEntrega.ClienteId == 0)
-            {
-               // enderecoEntrega.ClienteId = 1;
-                _context.EnderecoEntrega.Add(enderecoEntrega);
-                await _context.SaveChangesAsync();
-            }
-            else
-            {
-                _context.EnderecoEntrega.Add(enderecoEntrega);
-                await _context.SaveChangesAsync();
-            }
+            _context.EnderecoEntrega.Add(enderecoEntrega);
+            await _context.SaveChangesAsync();
         }
 
         public async Task Alterar(EntidadeDominio entidadeDominio)
