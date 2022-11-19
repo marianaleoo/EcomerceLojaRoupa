@@ -46,6 +46,8 @@ namespace EcommerceLojaRoupa.Dao
         public async Task Salvar(EntidadeDominio entidadeDominio)
         {
             EnderecoEntrega enderecoEntrega = (EnderecoEntrega)entidadeDominio;
+            enderecoEntrega.Cidade = await _context.Cidade.FirstOrDefaultAsync(x => x.Id == enderecoEntrega.cidadeId);
+            enderecoEntrega.Cidade.Estado = await _context.Estado.FirstOrDefaultAsync(x => x.Id == enderecoEntrega.Cidade.estadoId);
             _context.EnderecoEntrega.Add(enderecoEntrega);
             await _context.SaveChangesAsync();
         }

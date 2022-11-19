@@ -64,7 +64,7 @@ namespace EcommerceLojaRoupa.Dao
         public async Task Alterar(EntidadeDominio entidadeDominio)
         {
             ItemCarrinho itemCarrinho = (ItemCarrinho)entidadeDominio;
-            if(itemCarrinho.Tamanho != null && itemCarrinho.ClienteId == 1)
+            if(itemCarrinho.Tamanho != null && itemCarrinho.ClienteId == 3)
             {
 
                 var idItemCarrinho = _context.ItemCarrinho.FirstOrDefault(i => i.RoupaId == 1);
@@ -73,7 +73,7 @@ namespace EcommerceLojaRoupa.Dao
                 _context.Entry(idItemCarrinho).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
             }
-            if(itemCarrinho.Quantidade != 0 && itemCarrinho.ClienteId == 1)
+            if(itemCarrinho.Quantidade != 0 && itemCarrinho.ClienteId == 3)
             {
                 var idItemCarrinho = _context.ItemCarrinho.FirstOrDefault(i => i.RoupaId == 1);
                 idItemCarrinho.Quantidade = itemCarrinho.Quantidade;

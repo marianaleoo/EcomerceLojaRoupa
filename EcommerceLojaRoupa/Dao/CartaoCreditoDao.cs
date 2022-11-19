@@ -39,8 +39,9 @@ namespace EcommerceLojaCartaoCredito.Dao
 
         public async Task Salvar(EntidadeDominio entidadeDominio)
         {
-            CartaoCredito CartaoCredito = (CartaoCredito)entidadeDominio;
-            _context.CartaoCredito.Add(CartaoCredito);
+            CartaoCredito cartaoCredito = (CartaoCredito)entidadeDominio;
+            cartaoCredito.Bandeira = await _context.Bandeira.FirstOrDefaultAsync(x => x.Id == cartaoCredito.BandeiraId);
+            _context.CartaoCredito.Add(cartaoCredito);
             await _context.SaveChangesAsync();
         }
 

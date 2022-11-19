@@ -12,15 +12,23 @@ insert into Genero(Descricao, DataCadastro) values('Outro', SYSDATETIME())
 select * from CartaoCredito
 
 insert into CartaoCredito(NumeroCartao, NomeCartao, CodigoSeguranca, BandeiraId, ClienteId, DataCadastro)
-values ('123456789101', 'Mariana Léo', '123', 1, 1, SYSDATETIME())
+values ('123456789101', 'Mariana Léo', '123', 1, 3, SYSDATETIME())
 
+select * from EnderecoEntrega
+insert into EnderecoEntrega(TipoResidencia, TipoLogradouro, Logradouro, Numero, Bairro,
+Cep, ClienteId, cidadeId, DataCadastro)values('Residencial', 'Rua', 'Pedro Paulo dos Santos', '3175', 'Jundiapeba', '08750710', 3, 1, SYSDATETIME())
+
+
+select * from Cidade
+select * from Cliente
+select * from Roupa
        
 
 
 --quando o cliente for cadastrado dar um insert na tabela carrinho de compra
 
 
-select * from CarrinhoCompra
+select * from Cliente
 
 
 insert into CarrinhoCompra(DataCadastro) values(SYSDATETIME()) 
