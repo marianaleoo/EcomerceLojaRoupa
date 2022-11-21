@@ -4,14 +4,16 @@ using EcommerceLojaRoupa.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EcommerceLojaRoupa.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221121022658_RemoveFretePedido")]
+    partial class RemoveFretePedido
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -191,40 +193,6 @@ namespace EcommerceLojaRoupa.Migrations
                     b.HasIndex("UsuarioId");
 
                     b.ToTable("Cliente");
-                });
-
-            modelBuilder.Entity("EcommerceLojaRoupa.Model.Compra", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("CartaoCredito")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("CupomPromocional")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("DataCadastro")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("EnderecoEntregaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PedidoId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EnderecoEntregaId");
-
-                    b.HasIndex("PedidoId");
-
-                    b.ToTable("Compra");
                 });
 
             modelBuilder.Entity("EcommerceLojaRoupa.Model.CupomPromocional", b =>
@@ -508,17 +476,14 @@ namespace EcommerceLojaRoupa.Migrations
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Frete")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("ItemCarrinhoId")
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ValorTotalVenda")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("ValorTotalVenda")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -663,25 +628,6 @@ namespace EcommerceLojaRoupa.Migrations
                     b.Navigation("TipoTelefone");
 
                     b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("EcommerceLojaRoupa.Model.Compra", b =>
-                {
-                    b.HasOne("EcommerceLojaRoupa.Model.EnderecoEntrega", "EnderecoEntrega")
-                        .WithMany()
-                        .HasForeignKey("EnderecoEntregaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EcommerceLojaRoupa.Model.Pedido", "Pedido")
-                        .WithMany()
-                        .HasForeignKey("PedidoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("EnderecoEntrega");
-
-                    b.Navigation("Pedido");
                 });
 
             modelBuilder.Entity("EcommerceLojaRoupa.Model.EnderecoCobranca", b =>
