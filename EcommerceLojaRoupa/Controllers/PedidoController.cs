@@ -1,5 +1,6 @@
 ﻿using EcommerceLojaRoupa.Command;
 using EcommerceLojaRoupa.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -14,12 +15,32 @@ namespace EcommerceLojaRoupa.Controllers
     {
         private readonly CommandSalvar _commandSalvar;
         private readonly CommandAlterar _commandAlterar;
+        private readonly CommandConsultar _commandConsultar; 
 
-        public PedidoController(CommandSalvar commandSalvar, CommandAlterar commandAlterar)
+        public PedidoController(CommandSalvar commandSalvar, CommandAlterar commandAlterar, CommandConsultar commandConsultar)
         {
             _commandSalvar = commandSalvar;
             _commandAlterar = commandAlterar;
+            _commandConsultar = commandConsultar;
         }
+
+        [HttpGet("{clienteId:int}")]
+        public async Task<ActionResult<IAsyncEnumerable<Pedido>>> Consultar(int clienteId)
+        {
+            Pedido pedido = new Pedido();
+            pedido.ClienteId = clienteId;
+            try
+            {
+                var pedidos = await _commandConsultar.Executar(pedido);
+                return Ok(pedidos);
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao obter pedidos");
+            }
+        }
+
         [HttpPost]
         public async Task<ActionResult> Salvar(Pedido pedido)
         {

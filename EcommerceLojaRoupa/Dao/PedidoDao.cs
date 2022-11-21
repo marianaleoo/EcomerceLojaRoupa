@@ -27,10 +27,27 @@ namespace EcommerceLojaRoupa.Dao
             await _context.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<EntidadeDominio>> Consultar(EntidadeDominio entidadeDominio)
+        public async Task<IEnumerable<EntidadeDominio>> Consultar(EntidadeDominio entidadeDominio)
         {
-            throw new NotImplementedException();
+            Pedido pedido = (Pedido)entidadeDominio;
+            if (pedido.ClienteId != 0)
+            {
+                List<Pedido> pedidos = new List<Pedido>();
+                pedidos.Add(await _context.Pedido.FirstOrDefaultAsync(i => i.ClienteId == pedido.ClienteId));
+                foreach (var item in pedidos)
+                {
+                    ItemCarrinho itemCarrinho;
+                    itemCarrinho = await _context.ItemCarrinho.FirstOrDefaultAsync(i => i.Id == item.ItemCarrinhoId);
+                    Roupa roupa;
+                    roupa = await _context.Roupa.FirstOrDefaultAsync(r => r.Id == itemCarrinho.RoupaId);
+                    itemCarrinho.Roupa = roupa;
+                    item.ItemCarrinho = itemCarrinho;
+                }
+                return pedidos;
+            }
+            return await _context.Pedido.ToListAsync();
         }
+
 
         public Task<EntidadeDominio> ConsultarCarrinhoCliente(int clienteId)
         {
