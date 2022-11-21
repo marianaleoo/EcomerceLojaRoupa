@@ -1,4 +1,5 @@
 ﻿using EcommerceLojaRoupa.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,6 +52,8 @@ namespace EcommerceLojaRoupa.Dao
         public async Task Salvar(EntidadeDominio entidadeDominio)
         {
             Compra compra = (Compra)entidadeDominio;
+            compra.Pedido = await _context.Pedido.FirstOrDefaultAsync(p => p.Id == compra.PedidoId);
+            compra.EnderecoEntrega = await _context.EnderecoEntrega.FirstOrDefaultAsync(e => e.Id == compra.EnderecoEntregaId); 
             _context.Compra.Add(compra);
             await _context.SaveChangesAsync();        
         }

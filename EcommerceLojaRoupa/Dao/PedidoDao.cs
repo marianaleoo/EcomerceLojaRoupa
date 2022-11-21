@@ -19,9 +19,12 @@ namespace EcommerceLojaRoupa.Dao
         public PedidoDao()
         {
         }
-        public Task Alterar(EntidadeDominio entidadeDominio)
+        public async Task Alterar(EntidadeDominio entidadeDominio)
         {
-            throw new NotImplementedException();
+            Pedido pedido = (Pedido)entidadeDominio;
+            pedido.ItemCarrinho = await _context.ItemCarrinho.FirstOrDefaultAsync(p => p.Id == pedido.ItemCarrinhoId);
+            _context.Entry(pedido).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
 
         public Task<IEnumerable<EntidadeDominio>> Consultar(EntidadeDominio entidadeDominio)
