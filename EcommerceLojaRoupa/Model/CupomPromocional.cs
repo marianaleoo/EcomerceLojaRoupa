@@ -7,6 +7,6 @@ namespace EcommerceLojaRoupa.Model
 {
     public class CupomPromocional : EntidadeDominio
     {
-
+        public string Descricao; 
     }
 }

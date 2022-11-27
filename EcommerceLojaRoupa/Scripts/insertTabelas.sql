@@ -11,8 +11,10 @@ insert into Genero(Descricao, DataCadastro) values('Outro', SYSDATETIME())
 
 select * from CartaoCredito
 
-insert into CartaoCredito(NumeroCartao, NomeCartao, CodigoSeguranca, BandeiraId, ClienteId, DataCadastro)
-values ('123456789101', 'Mariana Léo', '123', 1, 3, SYSDATETIME())
+delete from CartaoCredito where Id =11
+
+insert into CartaoCredito(NumeroCartao, NomeCartao, ValidadeCartao, CodigoSeguranca, BandeiraId, ClienteId, DataCadastro)
+values ('123456789101', 'Mariana Léo', SYSDATETIME(), '123', 1, 3, SYSDATETIME())
 
 select * from EnderecoEntrega
 insert into EnderecoEntrega(TipoResidencia, TipoLogradouro, Logradouro, Numero, Bairro,
@@ -50,4 +52,4 @@ values(1, 'M', 'Mariana de Oliveira Léo', '1997-12-05', '45745559802', '11', '99
 select * from Usuario where Id= 1
 
 
-insert into Roupa(Nome, Codigo, Tecido, Descricao, Ativo,  Preco, ImgLink, DataCadastro) values ('Calça Sarja', 'C', 'algodão', 'Calça verde', '1', 129.90, 'https://images.tcdn.com.br/img/img_prod/889236/calca_sarja_wide_cali_129_1_628ae91f6d42c7892fc60d525ead75ef.png', SYSDATETIME())
+insert into Roupa(Nome, Codigo, Tecido, Descricao, Ativo,  Preco, ImgLink, DataCadastro) values ('Shorts Saia', 'S', 'algodão', 'Shorts Saia XADREZ ', '1', 99.90, 'https://images.tcdn.com.br/img/img_prod/889236/shorts_saia_bella_2_0_xadrez_145_1_3ddc8d89a0e147ac9f7c9d5249953c40.jpg', SYSDATETIME())

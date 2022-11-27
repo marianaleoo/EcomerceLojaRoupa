@@ -22,6 +22,7 @@ namespace EcommerceLojaCartaoCredito.Dao
         public async Task<IEnumerable<EntidadeDominio>> Consultar(EntidadeDominio entidadeDominio)
         {
             CartaoCredito CartaoCredito = (CartaoCredito)entidadeDominio;
+            List<CartaoCredito> cartoesCredito = new List<CartaoCredito>();
             if (CartaoCredito.Id != 0)
             {
                 List<EntidadeDominio> CartoesCredito = new List<EntidadeDominio>();
@@ -30,9 +31,18 @@ namespace EcommerceLojaCartaoCredito.Dao
             }
             if(CartaoCredito.ClienteId != 0)
             {
-                List<CartaoCredito> cartoesCredito = new List<CartaoCredito>();
-                cartoesCredito.Add(await _context.CartaoCredito.FirstOrDefaultAsync(e => e.ClienteId == CartaoCredito.ClienteId));
-                return cartoesCredito;
+                List<CartaoCredito> cartoes = new List<CartaoCredito>();
+                cartoesCredito = await _context.CartaoCredito.Include(c => c.Bandeira).ToListAsync();
+                foreach (var item in cartoesCredito)
+                {
+
+                    if (item.ClienteId == CartaoCredito.ClienteId)
+                    {
+                        cartoes.Add(item);
+                    }
+                }
+
+                return cartoes;
             }
             return await _context.CartaoCredito.ToListAsync();
         }

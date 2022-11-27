@@ -4,14 +4,16 @@ using EcommerceLojaRoupa.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EcommerceLojaRoupa.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221127003856_AlteracaoTabelaCompra")]
+    partial class AlteracaoTabelaCompra
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,9 +78,6 @@ namespace EcommerceLojaRoupa.Migrations
 
                     b.Property<string>("NumeroCartao")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ValidadeCartao")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -224,6 +223,8 @@ namespace EcommerceLojaRoupa.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CartaoCreditoId");
+
+                    b.HasIndex("CupomPromocionalId");
 
                     b.HasIndex("EnderecoEntregaId");
 
@@ -678,6 +679,12 @@ namespace EcommerceLojaRoupa.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("EcommerceLojaRoupa.Model.CupomPromocional", "CupomPromocional")
+                        .WithMany()
+                        .HasForeignKey("CupomPromocionalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("EcommerceLojaRoupa.Model.EnderecoEntrega", "EnderecoEntrega")
                         .WithMany()
                         .HasForeignKey("EnderecoEntregaId")
@@ -691,6 +698,8 @@ namespace EcommerceLojaRoupa.Migrations
                         .IsRequired();
 
                     b.Navigation("CartaoCredito");
+
+                    b.Navigation("CupomPromocional");
 
                     b.Navigation("EnderecoEntrega");
 

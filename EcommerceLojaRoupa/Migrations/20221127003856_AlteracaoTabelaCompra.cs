@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EcommerceLojaRoupa.Migrations
 {
-    public partial class CreateCompra : Migration
+    public partial class AlteracaoTabelaCompra : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,14 +15,26 @@ namespace EcommerceLojaRoupa.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PedidoId = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CartaoCredito = table.Column<bool>(type: "bit", nullable: true),
-                    CupomPromocional = table.Column<bool>(type: "bit", nullable: true),
                     EnderecoEntregaId = table.Column<int>(type: "int", nullable: false),
+                    CupomPromocionalId = table.Column<int>(type: "int", nullable: false),
+                    CartaoCreditoId = table.Column<int>(type: "int", nullable: false),
                     DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Compra", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Compra_CartaoCredito_CartaoCreditoId",
+                        column: x => x.CartaoCreditoId,
+                        principalTable: "CartaoCredito",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_Compra_CupomPromocional_CupomPromocionalId",
+                        column: x => x.CupomPromocionalId,
+                        principalTable: "CupomPromocional",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Compra_EnderecoEntrega_EnderecoEntregaId",
                         column: x => x.EnderecoEntregaId,
@@ -36,6 +48,16 @@ namespace EcommerceLojaRoupa.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Compra_CartaoCreditoId",
+                table: "Compra",
+                column: "CartaoCreditoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Compra_CupomPromocionalId",
+                table: "Compra",
+                column: "CupomPromocionalId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Compra_EnderecoEntregaId",

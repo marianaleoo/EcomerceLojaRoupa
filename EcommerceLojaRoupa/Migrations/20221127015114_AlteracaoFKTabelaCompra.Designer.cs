@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcommerceLojaRoupa.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221121024630_CreateCompra")]
-    partial class CreateCompra
+    [Migration("20221127015114_AlteracaoFKTabelaCompra")]
+    partial class AlteracaoFKTabelaCompra
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -78,6 +78,9 @@ namespace EcommerceLojaRoupa.Migrations
 
                     b.Property<string>("NumeroCartao")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ValidadeCartao")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -202,11 +205,11 @@ namespace EcommerceLojaRoupa.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("CartaoCredito")
-                        .HasColumnType("bit");
+                    b.Property<int>("CartaoCreditoId")
+                        .HasColumnType("int");
 
-                    b.Property<bool>("CupomPromocional")
-                        .HasColumnType("bit");
+                    b.Property<int>("CupomPromocionalId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime2");
@@ -221,6 +224,8 @@ namespace EcommerceLojaRoupa.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CartaoCreditoId");
 
                     b.HasIndex("EnderecoEntregaId");
 
@@ -669,6 +674,12 @@ namespace EcommerceLojaRoupa.Migrations
 
             modelBuilder.Entity("EcommerceLojaRoupa.Model.Compra", b =>
                 {
+                    b.HasOne("EcommerceLojaRoupa.Model.CartaoCredito", "CartaoCredito")
+                        .WithMany()
+                        .HasForeignKey("CartaoCreditoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("EcommerceLojaRoupa.Model.EnderecoEntrega", "EnderecoEntrega")
                         .WithMany()
                         .HasForeignKey("EnderecoEntregaId")
@@ -680,6 +691,8 @@ namespace EcommerceLojaRoupa.Migrations
                         .HasForeignKey("PedidoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("CartaoCredito");
 
                     b.Navigation("EnderecoEntrega");
 

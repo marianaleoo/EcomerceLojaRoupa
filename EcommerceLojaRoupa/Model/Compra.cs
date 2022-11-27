@@ -12,12 +12,16 @@ namespace EcommerceLojaRoupa.Model
         [ForeignKey("PedidoId")]
         public Pedido Pedido { get; set; }
         public string Status { get; set; }
-        public bool CartaoCredito { get; set; }
-        public bool CupomPromocional { get; set; }
         public int EnderecoEntregaId { get; set; }
 
         [ForeignKey("EnderecoEntregaId")]
         public EnderecoEntrega EnderecoEntrega { get; set; }
+        public int CupomPromocionalId { get; set; }
+        public int CartaoCreditoId { get; set; }
+
+        [ForeignKey("CartaoCreditoId")]
+        public CartaoCredito CartaoCredito { get; set; }
+
 
     }
 }

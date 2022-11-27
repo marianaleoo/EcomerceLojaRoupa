@@ -11,6 +11,7 @@ namespace EcommerceLojaRoupa.Model
         public string NumeroCartao { get; set; }
         public string NomeCartao { get; set; }
         public string CodigoSeguranca { get; set; }
+        public DateTime ValidadeCartao { get; set; }
         public int BandeiraId { get; set; }
         [ForeignKey("BandeiraId")]
         public virtual Bandeira Bandeira    { get; set; }

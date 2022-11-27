@@ -22,17 +22,30 @@ namespace EcommerceLojaRoupa.Dao
         public async Task<IEnumerable<EntidadeDominio>> Consultar(EntidadeDominio entidadeDominio)
         {
             EnderecoEntrega enderecoEntrega = (EnderecoEntrega)entidadeDominio;
+            List<EnderecoEntrega> enderecosEntrega = new List<EnderecoEntrega>();
+
             if (enderecoEntrega.Id != 0)
             {
-                List<EntidadeDominio> enderecosEntrega = new List<EntidadeDominio>();
-                enderecosEntrega.Add(await ConsultarId(enderecoEntrega.Id));
+                List<EntidadeDominio> enderecos = new List<EntidadeDominio>();
+                enderecos.Add(await ConsultarId(enderecoEntrega.Id));
                 return enderecosEntrega;
             }
-            if(enderecoEntrega.ClienteId != 0)
+            if (enderecoEntrega.ClienteId != 0)
             {
-                List<EnderecoEntrega> enderecoEntregas = new List<EnderecoEntrega>();
-                enderecoEntregas.Add(await _context.EnderecoEntrega.FirstOrDefaultAsync(e=> e.ClienteId == enderecoEntrega.ClienteId));
-                return enderecoEntregas;
+                List<EnderecoEntrega> listaEnderecos = new List<EnderecoEntrega>();
+                enderecosEntrega = await _context.EnderecoEntrega.Include(c => c.Cidade.Estado.Pais).ToListAsync();
+                foreach(var item in enderecosEntrega)
+                {
+
+                    if(item.ClienteId == enderecoEntrega.ClienteId)
+                    {
+                        listaEnderecos.Add(enderecoEntrega);
+                    }             
+                }
+
+                return listaEnderecos;
+
+
             }
             return await _context.EnderecoEntrega.Include(c => c.Cidade.Estado.Pais).ToListAsync();
         }

@@ -53,7 +53,8 @@ namespace EcommerceLojaRoupa.Dao
         {
             Compra compra = (Compra)entidadeDominio;
             compra.Pedido = await _context.Pedido.FirstOrDefaultAsync(p => p.Id == compra.PedidoId);
-            compra.EnderecoEntrega = await _context.EnderecoEntrega.FirstOrDefaultAsync(e => e.Id == compra.EnderecoEntregaId); 
+            compra.EnderecoEntrega = await _context.EnderecoEntrega.FirstOrDefaultAsync(e => e.Id == compra.EnderecoEntregaId);
+            compra.CartaoCredito = await _context.CartaoCredito.FirstOrDefaultAsync(e => e.Id == compra.CartaoCreditoId);
             _context.Compra.Add(compra);
             await _context.SaveChangesAsync();        
         }
