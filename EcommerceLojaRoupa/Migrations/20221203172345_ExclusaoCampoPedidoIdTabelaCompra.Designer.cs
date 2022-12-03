@@ -4,14 +4,16 @@ using EcommerceLojaRoupa.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EcommerceLojaRoupa.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221203172345_ExclusaoCampoPedidoIdTabelaCompra")]
+    partial class ExclusaoCampoPedidoIdTabelaCompra
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -257,12 +259,6 @@ namespace EcommerceLojaRoupa.Migrations
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("codigo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("valorTroca")
-                        .HasColumnType("float");
-
                     b.HasKey("Id");
 
                     b.ToTable("CupomTroca");
@@ -480,12 +476,6 @@ namespace EcommerceLojaRoupa.Migrations
                     b.Property<int>("CompraId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CompraTrocaId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CupomTrocaId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime2");
 
@@ -501,8 +491,6 @@ namespace EcommerceLojaRoupa.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CompraId");
-
-                    b.HasIndex("CupomTrocaId");
 
                     b.HasIndex("RoupaId");
 
@@ -756,15 +744,11 @@ namespace EcommerceLojaRoupa.Migrations
 
             modelBuilder.Entity("EcommerceLojaRoupa.Model.ItemCompra", b =>
                 {
-                    b.HasOne("EcommerceLojaRoupa.Model.Compra", null)
-                        .WithMany("ItensCompra")
+                    b.HasOne("EcommerceLojaRoupa.Model.Compra", "Compra")
+                        .WithMany()
                         .HasForeignKey("CompraId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("EcommerceLojaRoupa.Model.CupomTroca", "CupomTroca")
-                        .WithMany()
-                        .HasForeignKey("CupomTrocaId");
 
                     b.HasOne("EcommerceLojaRoupa.Model.Roupa", "Roupa")
                         .WithMany()
@@ -772,7 +756,7 @@ namespace EcommerceLojaRoupa.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CupomTroca");
+                    b.Navigation("Compra");
 
                     b.Navigation("Roupa");
                 });
@@ -789,11 +773,6 @@ namespace EcommerceLojaRoupa.Migrations
                     b.Navigation("EnderecoCobranca");
 
                     b.Navigation("EnderecoEntrega");
-                });
-
-            modelBuilder.Entity("EcommerceLojaRoupa.Model.Compra", b =>
-                {
-                    b.Navigation("ItensCompra");
                 });
 #pragma warning restore 612, 618
         }

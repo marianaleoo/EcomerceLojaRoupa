@@ -19,7 +19,6 @@ namespace EcommerceLojaRoupa.Model
         public DbSet<Categoria> Categoria { get; set; }
         public DbSet<CartaoCredito> CartaoCredito { get; set; }
         public DbSet<Cidade> Cidade { get; set; }
-        public DbSet<Pedido> Pedido { get; set; }
         public DbSet<CupomPromocional> CupomPromocional { get; set; }
         public DbSet<CupomTroca> CupomTroca { get; set; }
         public DbSet<EnderecoCobranca> EnderecoCobranca { get; set; }
