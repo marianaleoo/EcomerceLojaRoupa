@@ -39,7 +39,7 @@ namespace EcommerceLojaRoupa.Dao
 
                     if(item.ClienteId == enderecoEntrega.ClienteId)
                     {
-                        listaEnderecos.Add(enderecoEntrega);
+                        listaEnderecos.Add(item);
                     }             
                 }
 
