@@ -72,7 +72,7 @@ namespace EcommerceLojaRoupa.Dao
                 for (int i = 0; i < item.Quantidade; i++)
                 {
                     ItemCompra itemCompra = new ItemCompra();
-                    itemCompra.preco = item.Roupa.Preco;
+                    itemCompra.Preco = item.Roupa.Preco;
                     itemCompra.Status = null;
                     itemCompra.RoupaId = item.RoupaId;
                     itemCompra.CompraId = compra.Id;

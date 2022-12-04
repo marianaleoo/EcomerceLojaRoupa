@@ -8,7 +8,7 @@ namespace EcommerceLojaRoupa.Model
 {
     public class ItemCompra : EntidadeDominio
     {
-        public double preco { set; get; }
+        public double Preco { set; get; }
         [ForeignKey("RoupaId")]
         public int RoupaId { get; set; }
         public Roupa Roupa { get; set; }

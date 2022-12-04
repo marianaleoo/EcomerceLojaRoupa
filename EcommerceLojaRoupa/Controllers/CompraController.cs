@@ -25,6 +25,22 @@ namespace EcommerceLojaRoupa.Controllers
             _compraDao = new CompraDao(appDbContext);
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IAsyncEnumerable<Compra>>> Consultar()
+        {
+            Compra compra = new Compra();
+            try
+            {
+                var compras = await _commandConsultar.Executar(compra);
+                return Ok(compras);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex);
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpGet("{clienteId:int}")]
         public async Task<ActionResult<IAsyncEnumerable<Compra>>> Consultar(int clienteId)
