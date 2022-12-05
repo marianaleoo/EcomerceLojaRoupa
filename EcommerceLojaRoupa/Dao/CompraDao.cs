@@ -19,20 +19,46 @@ namespace EcommerceLojaRoupa.Dao
         public CompraDao()
         {
         }
-        public Task Alterar(EntidadeDominio entidadeDominio)
+        public async  Task Alterar(EntidadeDominio entidadeDominio)
         {
-            throw new NotImplementedException();
+            Compra compra = (Compra)entidadeDominio;
+            if(compra.Id != 0)
+            {
+                var compraBanco = await _context.Compra.FirstOrDefaultAsync(c => c.Id == compra.Id);
+                if(compraBanco.Status == "EM_PROCESSAMENTO")
+                {
+                    compraBanco.Status = "PAGAMENTO_REALIZADO";
+                    await _context.SaveChangesAsync();
+                }
+                else if (compraBanco.Status == "PAGAMENTO_REALIZADO")
+                {
+                    compraBanco.Status = "EM_TRANSPORTE";
+                    await _context.SaveChangesAsync();
+                }
+                else if (compraBanco.Status == "EM_TRANSPORTE")
+                {
+                    compraBanco.Status = "ENTREGUE";
+                    await _context.SaveChangesAsync();
+                }
+            }
         }
 
         public async Task<IEnumerable<EntidadeDominio>> Consultar(EntidadeDominio entidadeDominio)
         {
             Compra compra = (Compra)entidadeDominio;
-            if(compra.ClienteId != 0)
+            if (compra.ClienteId != 0)
             {
-                return await _context.Compra.Include("ItensCompra.Roupa").Where(i => i.ClienteId == compra.ClienteId).ToListAsync();
+                return await _context.Compra.Include("ItensCompra.Roupa").Include("ItensCompra.CupomTroca").Where(i => i.ClienteId == compra.ClienteId).ToListAsync();
+            }
+            if(compra.Status != null)
+            {
+                return await _context.Compra.Include("ItensCompra").Where(i => i.Status == compra.Status).ToListAsync();
+
             }
 
             return await _context.Compra.Include("ItensCompra").ToListAsync();
+
+
         }
 
         public Task<EntidadeDominio> ConsultarCarrinhoCliente(int clienteId)
@@ -71,14 +97,18 @@ namespace EcommerceLojaRoupa.Dao
             {
                 for (int i = 0; i < item.Quantidade; i++)
                 {
+                    compra.valorTotal += item.Roupa.Preco;
                     ItemCompra itemCompra = new ItemCompra();
                     itemCompra.Preco = item.Roupa.Preco;
                     itemCompra.Status = null;
                     itemCompra.RoupaId = item.RoupaId;
                     itemCompra.CompraId = compra.Id;
                     itensCompra.Add(itemCompra);
-                }          
+                }         
+                
+
             }
+
             _context.ItemCompra.AddRange(itensCompra);
             await _context.SaveChangesAsync();
             _context.ItemCarrinho.RemoveRange(itensCarrinho);
@@ -89,20 +119,9 @@ namespace EcommerceLojaRoupa.Dao
         {
             CupomTroca cupomTroca = new CupomTroca();
             var itemTroca = await _context.ItemCompra.FirstOrDefaultAsync(i => i.Id == itemCompra.Id);
-            itemTroca.Status = "PEDIDO DE TROCA";
+            itemTroca.Status = "PEDIDO_DE_TROCA";
             await _context.SaveChangesAsync();
             return itemTroca;
-
-
-            //cupomTroca.valorTroca = itemTroca.preco;
-            //Guid myuuid = Guid.NewGuid();
-            //cupomTroca.codigo = myuuid.ToString();
-            // _context.CupomTroca.Add(cupomTroca);
-            //await _context.SaveChangesAsync();
-            //itemTroca.CompraTrocaId = cupomTroca.Id;
-            //await _context.SaveChangesAsync();
-
-
         }
     }
 }

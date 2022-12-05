@@ -4,14 +4,16 @@ using EcommerceLojaRoupa.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EcommerceLojaRoupa.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221204235337_ExclusaoCampoCupomIdTabelaCompra")]
+    partial class ExclusaoCampoCupomIdTabelaCompra
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -218,9 +220,6 @@ namespace EcommerceLojaRoupa.Migrations
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("valorTotal")
-                        .HasColumnType("float");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CartaoCreditoId");
@@ -256,9 +255,6 @@ namespace EcommerceLojaRoupa.Migrations
 
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("ativo")
-                        .HasColumnType("bit");
 
                     b.Property<string>("codigo")
                         .HasColumnType("nvarchar(max)");
@@ -486,7 +482,7 @@ namespace EcommerceLojaRoupa.Migrations
                     b.Property<int>("CompraId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CupomTrocaId")
+                    b.Property<int>("CupomTrocaId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DataCadastro")
@@ -770,7 +766,9 @@ namespace EcommerceLojaRoupa.Migrations
 
                     b.HasOne("EcommerceLojaRoupa.Model.CupomTroca", "CupomTroca")
                         .WithMany()
-                        .HasForeignKey("CupomTrocaId");
+                        .HasForeignKey("CupomTrocaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("EcommerceLojaRoupa.Model.Roupa", "Roupa")
                         .WithMany()

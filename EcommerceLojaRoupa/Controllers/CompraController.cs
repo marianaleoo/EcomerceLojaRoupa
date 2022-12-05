@@ -16,12 +16,14 @@ namespace EcommerceLojaRoupa.Controllers
     {
         private readonly CommandSalvar _commandSalvar;
         private readonly CommandConsultar _commandConsultar;
+        private readonly CommandAlterar _commandAlterar;
         private readonly CompraDao _compraDao;
 
-        public CompraController(CommandSalvar commandSalvar, CommandConsultar commandConsultar, AppDbContext appDbContext)
+        public CompraController(CommandSalvar commandSalvar, CommandConsultar commandConsultar, CommandAlterar commandAlterar, AppDbContext appDbContext)
         {
             _commandSalvar = commandSalvar;
             _commandConsultar = commandConsultar;
+            _commandAlterar = commandAlterar;
             _compraDao = new CompraDao(appDbContext);
         }
 
@@ -41,6 +43,25 @@ namespace EcommerceLojaRoupa.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("{status}")]
+        public async Task<ActionResult<IAsyncEnumerable<Compra>>> ConsultarStatus(string status)
+        {
+            Compra compra = new Compra();
+            compra.Status = status;
+            try
+            {
+                var compras = await _commandConsultar.Executar(compra);
+                return Ok(compras);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex);
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         [HttpGet("{clienteId:int}")]
         public async Task<ActionResult<IAsyncEnumerable<Compra>>> Consultar(int clienteId)
@@ -83,6 +104,24 @@ namespace EcommerceLojaRoupa.Controllers
             {
                 var itemTroca = await  _compraDao.RealizarTroca(itemCompra);
                 return Ok(itemTroca);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Alterar(int id)
+        {
+            Compra compra = new Compra();
+            compra.Id = id;
+
+            try
+            {
+                var compraAlterada = await _commandAlterar.Executar(compra);
+                return Ok(compraAlterada);
             }
             catch (Exception ex)
             {

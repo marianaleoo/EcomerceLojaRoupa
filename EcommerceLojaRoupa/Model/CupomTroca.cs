@@ -11,6 +11,8 @@ namespace EcommerceLojaRoupa.Model
 
         public string codigo { get; set; }
 
+        public bool ativo { get; set; }
+
 
     }
 }

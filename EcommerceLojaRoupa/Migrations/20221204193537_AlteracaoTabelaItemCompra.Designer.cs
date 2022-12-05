@@ -4,14 +4,16 @@ using EcommerceLojaRoupa.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EcommerceLojaRoupa.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221204193537_AlteracaoTabelaItemCompra")]
+    partial class AlteracaoTabelaItemCompra
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -209,6 +211,9 @@ namespace EcommerceLojaRoupa.Migrations
                     b.Property<int>("ClienteId")
                         .HasColumnType("int");
 
+                    b.Property<int>("CupomTrocaId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime2");
 
@@ -217,9 +222,6 @@ namespace EcommerceLojaRoupa.Migrations
 
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("valorTotal")
-                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -256,9 +258,6 @@ namespace EcommerceLojaRoupa.Migrations
 
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("ativo")
-                        .HasColumnType("bit");
 
                     b.Property<string>("codigo")
                         .HasColumnType("nvarchar(max)");
@@ -484,6 +483,9 @@ namespace EcommerceLojaRoupa.Migrations
                         .HasColumnType("bit");
 
                     b.Property<int>("CompraId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompraTrocaId")
                         .HasColumnType("int");
 
                     b.Property<int?>("CupomTrocaId")

@@ -15,9 +15,11 @@ namespace EcommerceLojaRoupa.Model
         public string Status { get; set; }
         public int CompraId { get; set; }
 
-        [ForeignKey("CompraTrocaId")]
-        public int CompraTrocaId { get; set; }
+        [ForeignKey("CupomTrocaId")]
+        public int? CupomTrocaId { get; set; }
         public CupomTroca CupomTroca { get; set; }
+        public bool AceitarTroca { get; set; }
+        public bool RecusarTroca { get; set; }
 
     }
 }

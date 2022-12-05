@@ -13,7 +13,6 @@ namespace EcommerceLojaRoupa.Model
 
         [ForeignKey("EnderecoEntregaId")]
         public EnderecoEntrega EnderecoEntrega { get; set; }
-        public int CupomTrocaId { get; set; }
         public int CartaoCreditoId { get; set; }
 
         [ForeignKey("CartaoCreditoId")]
@@ -24,6 +23,8 @@ namespace EcommerceLojaRoupa.Model
         public Cliente Cliente { get; set; }
 
          public List<ItemCompra> ItensCompra { get; set; }
+
+        public double valorTotal { get; set; }
 
 
     }
