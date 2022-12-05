@@ -86,6 +86,7 @@ namespace EcommerceLojaRoupa.Dao
             Compra compra = (Compra)entidadeDominio;
             List<ItemCompra> itensCompra = new List<ItemCompra>();
             compra.EnderecoEntrega = await _context.EnderecoEntrega.FirstOrDefaultAsync(e => e.Id == compra.EnderecoEntregaId);
+            compra.EnderecoEntrega.Cidade = await _context.Cidade.FirstOrDefaultAsync(c => c.Id == compra.EnderecoEntrega.cidadeId);
             compra.CartaoCredito = await _context.CartaoCredito.FirstOrDefaultAsync(e => e.Id == compra.CartaoCreditoId);
             compra.DataCadastro = DateTime.Now;
             compra.CupomTroca = await _context.CupomTroca.FirstOrDefaultAsync(e => e.Id == compra.CupomTrocaId);
@@ -99,7 +100,15 @@ namespace EcommerceLojaRoupa.Dao
                 for (int i = 0; i < item.Quantidade; i++)
                 {
                     compra.valorTotal += item.Roupa.Preco;
-                    compra.valorTotal -= compra.CupomTroca.valorTroca;
+                    compra.valorTotal += compra.EnderecoEntrega.Cidade.Frete;
+                    if(compra.CupomTroca != null)
+                    {
+                        if (compra.CupomTroca.ativo == false)
+                        {
+                            compra.valorTotal -= compra.CupomTroca.valorTroca;
+                            compra.CupomTroca.ativo = true;
+                        }
+                    }             
                     ItemCompra itemCompra = new ItemCompra();
                     itemCompra.Preco = item.Roupa.Preco;
                     itemCompra.Status = null;
@@ -111,6 +120,7 @@ namespace EcommerceLojaRoupa.Dao
 
             }
 
+            await _context.SaveChangesAsync();
             _context.ItemCompra.AddRange(itensCompra);
             await _context.SaveChangesAsync();
             _context.ItemCarrinho.RemoveRange(itensCarrinho);

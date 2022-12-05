@@ -14,5 +14,7 @@ namespace EcommerceLojaRoupa.Model
 
         [ForeignKey("estadoId")]
         public Estado Estado { get; set; }
+
+        public double Frete { get; set; }
     }
 }

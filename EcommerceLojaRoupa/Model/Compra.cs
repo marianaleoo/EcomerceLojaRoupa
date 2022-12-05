@@ -22,9 +22,10 @@ namespace EcommerceLojaRoupa.Model
         [ForeignKey("ClienteId")]
         public Cliente Cliente { get; set; }
 
-         public List<ItemCompra> ItensCompra { get; set; }
-        public int? CupomTrocaId { get; set; }
+        public List<ItemCompra> ItensCompra { get; set; }
 
+        public int? CupomTrocaId { get; set; }
+        [ForeignKey("CupomTrocaId")]
         public CupomTroca CupomTroca { get; set; }
 
         public double valorTotal { get; set; }
