@@ -40,6 +40,7 @@ namespace EcommerceLojaRoupa.Facade
             daos["Usuario"] = new UsuarioDao(dbContext);
             daos["Compra"] = new CompraDao(dbContext);
             daos["ItemCompra"] = new ItemCompraDao(dbContext);
+            daos["CupomTroca"] = new CupomTrocaDao(dbContext);
 
         }
 

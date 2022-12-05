@@ -88,6 +88,7 @@ namespace EcommerceLojaRoupa.Dao
             compra.EnderecoEntrega = await _context.EnderecoEntrega.FirstOrDefaultAsync(e => e.Id == compra.EnderecoEntregaId);
             compra.CartaoCredito = await _context.CartaoCredito.FirstOrDefaultAsync(e => e.Id == compra.CartaoCreditoId);
             compra.DataCadastro = DateTime.Now;
+            compra.CupomTroca = await _context.CupomTroca.FirstOrDefaultAsync(e => e.Id == compra.CupomTrocaId);
             _context.Compra.Add(compra);
             await _context.SaveChangesAsync();
             var cliente = await _context.Cliente.FirstOrDefaultAsync(c => c.Id == compra.ClienteId);
@@ -98,6 +99,7 @@ namespace EcommerceLojaRoupa.Dao
                 for (int i = 0; i < item.Quantidade; i++)
                 {
                     compra.valorTotal += item.Roupa.Preco;
+                    compra.valorTotal -= compra.CupomTroca.valorTroca;
                     ItemCompra itemCompra = new ItemCompra();
                     itemCompra.Preco = item.Roupa.Preco;
                     itemCompra.Status = null;

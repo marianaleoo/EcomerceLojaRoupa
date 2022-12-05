@@ -31,7 +31,7 @@ namespace EcommerceLojaRoupa.Dao
             else if (itemCompra.RecusarTroca == true && itemCompra.Status == "PEDIDO_DE_TROCA")
             {
                 itemCompra.Status = "TROCA_RECUSADA";
-                _context.ItemCompra.Add(itemCompra);
+                _context.Entry(itemCompra).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
             }
             else if (itemCompra.Id != 0)
