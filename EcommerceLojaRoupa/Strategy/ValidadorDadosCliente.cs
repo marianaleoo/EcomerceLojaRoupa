@@ -14,6 +14,7 @@ namespace EcommerceLojaRoupa.Strategy
             var genero = cliente.GeneroId;
             var dataNascimento = cliente.DataNascimento;
             var email = cliente.Email;
+            var vencimentoCartao = cliente.CartaoCredito.ValidadeCartao;
 
             if (nome == null || genero == null || dataNascimento == null || email == null)
             {
@@ -26,6 +27,10 @@ namespace EcommerceLojaRoupa.Strategy
             if (!(new EmailAddressAttribute().IsValid(email)))
             {
                 return "Endereço de e-mail inválido!";
+            }
+            if(vencimentoCartao < System.DateTime.Now)
+            {
+                return "Cartão Vencido!";
             }
 
             return null;
