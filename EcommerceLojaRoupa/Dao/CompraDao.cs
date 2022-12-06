@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -108,9 +109,11 @@ namespace EcommerceLojaRoupa.Dao
                             compra.valorTotal -= compra.CupomTroca.valorTroca;
                             compra.CupomTroca.ativo = true;
                         }
-                    }             
+                    }
+                    compra.valorTotal.ToString("F2", CultureInfo.InvariantCulture);
                     ItemCompra itemCompra = new ItemCompra();
                     itemCompra.Preco = item.Roupa.Preco;
+                    itemCompra.Preco.ToString("F2", CultureInfo.InvariantCulture);
                     itemCompra.Status = null;
                     itemCompra.RoupaId = item.RoupaId;
                     itemCompra.CompraId = compra.Id;

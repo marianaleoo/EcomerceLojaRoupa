@@ -77,8 +77,24 @@ namespace EcommerceLojaRoupa.Dao
         public async Task Salvar(EntidadeDominio entidadeDominio)
         {
             Cliente cliente = (Cliente)entidadeDominio;
+            Usuario usuario = new Usuario();
+            usuario.Email = cliente.Email;
+            usuario.Senha = cliente.Senha;
+            _context.Usuario.Add(usuario);
+            await _context.SaveChangesAsync();
+            var usuarioBanco = await _context.Usuario.FirstOrDefaultAsync(u => u.Email == usuario.Email);
+            cliente.UsuarioId = usuarioBanco.Id;
+            CarrinhoCompra carrinhoCompra = new CarrinhoCompra();
+            carrinhoCompra.DataCadastro = DateTime.Now;
+            _context.CarrinhoCompra.Add(carrinhoCompra);
+            await _context.SaveChangesAsync();
+            var carrinhoBanco = await _context.CarrinhoCompra.FirstOrDefaultAsync(c => c.DataCadastro == carrinhoCompra.DataCadastro);
+            cliente.CarrinhoId = carrinhoBanco.Id;
+            cliente.EnderecoCobranca.Cidade = await _context.Cidade.FirstOrDefaultAsync(x => x.Id == cliente.EnderecoCobranca.cidadeId);
+            cliente.EnderecoCobranca.Cidade.Estado = await _context.Estado.FirstOrDefaultAsync(x => x.Id == cliente.EnderecoCobranca.Cidade.estadoId);
+            cliente.EnderecoEntrega.Cidade = await _context.Cidade.FirstOrDefaultAsync(x => x.Id == cliente.EnderecoEntrega.cidadeId);
+            cliente.EnderecoEntrega.Cidade.Estado = await _context.Estado.FirstOrDefaultAsync(x => x.Id == cliente.EnderecoEntrega.Cidade.estadoId);
             _context.Cliente.Add(cliente);
-
             await _context.SaveChangesAsync();
         }
 
