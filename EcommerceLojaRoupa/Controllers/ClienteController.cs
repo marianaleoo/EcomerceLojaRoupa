@@ -18,13 +18,15 @@ namespace EcommerceLojaRoupa.Controller
         private readonly CommandAlterar _commandAlterar;
         private readonly CommandExcluir _commandExcluir;
         private readonly CommandConsultar _commandConsultar;
+        private readonly ClienteDao _clienteDao;
 
-        public ClienteController(CommandSalvar commandSalvar, CommandAlterar commandAlterar, CommandExcluir commandExcluir, CommandConsultar commandConsultar)
+        public ClienteController(CommandSalvar commandSalvar, CommandAlterar commandAlterar, CommandExcluir commandExcluir, CommandConsultar commandConsultar, AppDbContext appDbContext)
         {
             _commandSalvar = commandSalvar;
             _commandAlterar = commandAlterar;
             _commandExcluir = commandExcluir;
             _commandConsultar = commandConsultar;
+            _clienteDao = new ClienteDao(appDbContext);
         }
 
         [HttpGet]
@@ -76,6 +78,25 @@ namespace EcommerceLojaRoupa.Controller
                 var listaRetorno = await _commandConsultar.Executar(cliente);
          
                     return Ok(listaRetorno);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("ClienteLogado/{id}")]
+        public async Task<ActionResult<IAsyncEnumerable<Cliente>>> ConsultaClienteLogado(int id)
+        {
+            Cliente cliente = new Cliente();
+            cliente.Id = id;
+            try
+            {
+
+                var listaRetorno = await _clienteDao.ConsultaClienteLogado(cliente.Id);
+
+                return Ok(listaRetorno);
             }
             catch (Exception ex)
             {

@@ -125,6 +125,17 @@ namespace EcommerceLojaRoupa.Dao
             return entidadeDominio;
         }
 
+        public async Task<EntidadeDominio> ConsultaClienteLogado(int id)
+        {
+            var entidadeDominio = await _context.Cliente.FindAsync(id);
+            var entidadeDominioEnderecoCobranca = await _context.EnderecoCobranca.Include(c => c.Cidade.Estado.Pais).FirstOrDefaultAsync(c => c.ClienteId == entidadeDominio.Id);
+            //var entidadeDominioEnderecoEntrega = await _context.EnderecoEntrega.Include(c => c.Cidade.Estado.Pais).FirstOrDefaultAsync(c => c.ClienteId == entidadeDominio.Id);
+            //var entidadeDominioCartaoCredito = await _context.CartaoCredito.Include(c => c.Bandeira).FirstOrDefaultAsync(c => c.ClienteId == entidadeDominio.Id);
+            entidadeDominio.EnderecoCobranca = entidadeDominioEnderecoCobranca;
+            //entidadeDominio.EnderecoEntrega = entidadeDominioEnderecoEntrega;
+            //entidadeDominio.CartaoCredito = entidadeDominioCartaoCredito;
+            return entidadeDominio;
+        }
         public async Task<IEnumerable<EntidadeDominio>> ConsultarPorId(int id)
         {
             List<Cliente> clientes = new List<Cliente>(); 

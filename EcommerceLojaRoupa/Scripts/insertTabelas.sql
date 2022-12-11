@@ -24,7 +24,15 @@ Cep, ClienteId, cidadeId, DataCadastro)values('Residencial', 'Rua', 'Pedro Paulo
 select * from Cidade
 select * from Cliente
 select * from Roupa
-       
+
+select * from Categoria
+
+delete from Categoria
+
+insert into Categoria(Descricao, DataCadastro) values('Calça', SYSDATETIME())
+insert into Categoria(Descricao, DataCadastro) values('Shorts', SYSDATETIME())
+insert into Categoria(Descricao, DataCadastro) values('Shorts-Saia', SYSDATETIME())
+
 
 
 --quando o cliente for cadastrado dar um insert na tabela carrinho de compra
@@ -52,4 +60,11 @@ values(1, 'M', 'Mariana de Oliveira Léo', '1997-12-05', '45745559802', '11', '99
 select * from Usuario where Id= 1
 
 
+
 insert into Roupa(Nome, Codigo, Tecido, Descricao, Ativo,  Preco, ImgLink, DataCadastro) values ('Shorts Saia', 'S', 'algodão', 'Shorts Saia XADREZ ', '1', 99.90, 'https://images.tcdn.com.br/img/img_prod/889236/shorts_saia_bella_2_0_xadrez_145_1_3ddc8d89a0e147ac9f7c9d5249953c40.jpg', SYSDATETIME())
+insert into Roupa(Nome, Codigo, Tecido, Descricao, Ativo,  Preco, ImgLink, DataCadastro) values ('Shorts', 'S', 'algodão', 'Shorts Jeans ', '1', 160.00, 'https://images.tcdn.com.br/img/img_prod/889236/shorts_jeans_lais_166_1_f5131295f65baf7785fb3f7467f3f1f9.jpg', SYSDATETIME())
+
+select * from Categoria 
+select * from Roupa
+
+update Roupa set CategoriaId = 7 where Id = 4

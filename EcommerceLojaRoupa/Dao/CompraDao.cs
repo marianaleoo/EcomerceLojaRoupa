@@ -20,13 +20,13 @@ namespace EcommerceLojaRoupa.Dao
         public CompraDao()
         {
         }
-        public async  Task Alterar(EntidadeDominio entidadeDominio)
+        public async Task Alterar(EntidadeDominio entidadeDominio)
         {
             Compra compra = (Compra)entidadeDominio;
-            if(compra.Id != 0)
+            if (compra.Id != 0)
             {
                 var compraBanco = await _context.Compra.FirstOrDefaultAsync(c => c.Id == compra.Id);
-                if(compraBanco.Status == "EM_PROCESSAMENTO")
+                if (compraBanco.Status == "EM_PROCESSAMENTO")
                 {
                     compraBanco.Status = "PAGAMENTO_REALIZADO";
                     await _context.SaveChangesAsync();
@@ -51,7 +51,7 @@ namespace EcommerceLojaRoupa.Dao
             {
                 return await _context.Compra.Include("ItensCompra.Roupa").Include("ItensCompra.CupomTroca").Where(i => i.ClienteId == compra.ClienteId).ToListAsync();
             }
-            if(compra.Status != null)
+            if (compra.Status != null)
             {
                 return await _context.Compra.Include("ItensCompra").Where(i => i.Status == compra.Status).ToListAsync();
 
@@ -59,8 +59,8 @@ namespace EcommerceLojaRoupa.Dao
 
             return await _context.Compra.Include("ItensCompra").ToListAsync();
 
-
         }
+
 
         public Task<EntidadeDominio> ConsultarCarrinhoCliente(int clienteId)
         {
@@ -95,14 +95,14 @@ namespace EcommerceLojaRoupa.Dao
             await _context.SaveChangesAsync();
             var cliente = await _context.Cliente.FirstOrDefaultAsync(c => c.Id == compra.ClienteId);
             var itensCarrinho = await _context.ItemCarrinho.Where(i => i.CarrinhoCompraId == cliente.CarrinhoId).Include(i => i.Roupa).ToListAsync();
-         
+
             foreach (var item in itensCarrinho)
             {
                 for (int i = 0; i < item.Quantidade; i++)
                 {
                     compra.valorTotal += item.Roupa.Preco;
                     compra.valorTotal += compra.EnderecoEntrega.Cidade.Frete;
-                    if(compra.CupomTroca != null)
+                    if (compra.CupomTroca != null)
                     {
                         if (compra.CupomTroca.ativo == false)
                         {
@@ -118,8 +118,8 @@ namespace EcommerceLojaRoupa.Dao
                     itemCompra.RoupaId = item.RoupaId;
                     itemCompra.CompraId = compra.Id;
                     itensCompra.Add(itemCompra);
-                }         
-                
+                }
+
 
             }
 
