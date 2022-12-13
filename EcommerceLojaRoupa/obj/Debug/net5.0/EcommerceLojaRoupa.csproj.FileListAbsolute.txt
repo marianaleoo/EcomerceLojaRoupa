@@ -178,3 +178,4 @@ D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\obj\Debug\net5.0\EcommerceLoja
 D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\obj\Debug\net5.0\ref\EcommerceLojaRoupa.dll
 D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\obj\Debug\net5.0\EcommerceLojaRoupa.pdb
 D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\obj\Debug\net5.0\EcommerceLojaRoupa.genruntimeconfig.cache
+D:\FATEC\LES\EcomerceLojaRoupa\EcommerceLojaRoupa\obj\Debug\net5.0\EcommerceLojaRoupa.csproj.AssemblyReference.cache

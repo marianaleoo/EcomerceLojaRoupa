@@ -1,0 +1,8 @@
+insert into Categoria(Descricao, DataCadastro) values('Calça', SYSDATETIME())
+insert into Categoria(Descricao, DataCadastro) values('Shorts', SYSDATETIME())
+insert into Categoria(Descricao, DataCadastro) values('Shorts-Saia', SYSDATETIME())
+insert into Categoria(Descricao, DataCadastro) values('Vestido', SYSDATETIME())
+insert into Categoria(Descricao, DataCadastro) values('Camiseta', SYSDATETIME())
+insert into Categoria(Descricao, DataCadastro) values('Blusa', SYSDATETIME())
+insert into Categoria(Descricao, DataCadastro) values('Cropped', SYSDATETIME())
+insert into Categoria(Descricao, DataCadastro) values('Regata', SYSDATETIME())

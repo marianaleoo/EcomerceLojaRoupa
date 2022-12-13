@@ -57,8 +57,52 @@ namespace EcommerceLojaRoupa.Dao
 
             }
 
-            return await _context.Compra.Include("ItensCompra").ToListAsync();
+            //var retornoQuery =
+            //    from c in _context.Categoria
+            //    join r in _context.Roupa on c.Id equals r.CategoriaId
+            //    join ic in _context.ItemCompra on r.Id equals ic.RoupaId
+            //    join cc in _context.Compra on ic.CompraId equals cc.Id
+            //    group c by c.Descricao into categorias
+            //    select new { cc. }
 
+
+            //from p in context.ParentTable
+            //join c in context.ChildTable on p.ParentId equals c.ChildParentId into j1
+            //from j2 in j1.DefaultIfEmpty()
+            //group j2 by p.ParentId into grouped
+            //select new { ParentId = grouped.Key, Count = grouped.Count(t => t.ChildId != null) }
+
+            //from p in context.ParentTable
+            //join c in context.ChildTable on p.ParentId equals c.ChildParentId into joined
+            //select new { ParentId = p.ParentId, Count = joined.Count() }
+
+
+            //var categorias = _context.Categoria.ToList();
+            //var itensCompra = _context.ItemCompra.ToList();
+            //var compras = _context.Compra.ToList();
+            //var roupas = _context.Roupa.ToList();
+
+
+            //var retornoQuery =
+            //  from c in categorias
+            //  join r in roupas on c.Id equals r.CategoriaId
+            //  join ic in itensCompra on r.Id equals ic.RoupaId
+            //  join cc in compras on ic.CompraId equals cc.Id 
+            //  group c by c.Descricao into categoriaGroup
+
+            //var query = from c in _context.Categoria
+            //            join r in _context.Roupa on  c.Id equals r.CategoriaId
+            //            join ic in _context.ItemCompra on  r.Id equals ic.RoupaId
+            //            join cc in _context.Compra on  ic.CompraId equals cc.Id
+            //            group c by c.Descricao into categoriaGroup
+            //            orderby cc.DataCadastro ascending
+            //            select new { 
+            //                    Descricao = categoriaGroup.Descricao,
+            //                    DataVenda = cc.DataCadastro,
+            //                    Quantidade = Count(categoriaGroup.Descricao)                         
+            //            };
+
+            return await _context.Compra.Include("ItensCompra").ToListAsync();
         }
 
 
